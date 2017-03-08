@@ -1,0 +1,21 @@
+﻿<Window x:Class="poemwriter2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:poemwriter2"
+        mc:Ignorable="d"
+        Title="Poemwriter" Height="673.29" Width="1195.526" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+    <Window.Background>
+        <ImageBrush ImageSource="images/paper.png"/>
+    </Window.Background>
+    <Grid Margin="0,0,-17,-10">
+        <Button x:Name="button" Content="Write" Margin="51,418,0,0" Width="102" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Style="{DynamicResource ButtonStyle1}">
+          
+        </Button>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="15" Margin="10,0,0,0" VerticalAlignment="Top" Width="497" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Background="{x:Null}"/>
+        <Button x:Name="button_Copy" Content="Delete" Margin="51,527,0,0" Width="102" HorizontalAlignment="Left" VerticalAlignment="Top" Height="62" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" Style="{DynamicResource ButtonStyle1}">
+            
+        </Button> 
+    </Grid>
+</Window>

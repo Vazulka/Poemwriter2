@@ -1,0 +1,8 @@
+asztal
+sámli
+ténykedés
+apró
+ASZTAL 12 AA 1 15
+SÁMLI 12 ÁI 10 1
+TÉNYKEDÉS 121 EÉ 14 10
+APRÓ 21 AÓ 1 1
