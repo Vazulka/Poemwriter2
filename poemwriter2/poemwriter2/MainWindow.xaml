@@ -5,17 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poemwriter2"
         mc:Ignorable="d"
-        Title="Poemwriter" Height="673.29" Width="1195.526" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+        Title="Poemwriter" Height="700" Width="900" Icon="images/paper.png" WindowStyle="None" AllowsTransparency="True" >
     <Window.Background>
         <ImageBrush ImageSource="images/paper.png"/>
     </Window.Background>
-    <Grid Margin="0,0,-17,-10">
-        <Button x:Name="button" Content="Write" Margin="51,418,0,0" Width="102" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Style="{DynamicResource ButtonStyle1}">
-          
-        </Button>
+    <Grid  MouseLeftButtonDown="move">
+        <Button x:Name="button" Content="Write" Margin="51,495,0,145" Width="102" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="60" Style="{DynamicResource ButtonStyle1}" Background="{x:Null}"/>
         <Menu x:Name="menu" HorizontalAlignment="Left" Height="15" Margin="10,0,0,0" VerticalAlignment="Top" Width="497" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Background="{x:Null}"/>
-        <Button x:Name="button_Copy" Content="Delete" Margin="51,527,0,0" Width="102" HorizontalAlignment="Left" VerticalAlignment="Top" Height="62" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" Style="{DynamicResource ButtonStyle1}">
-            
-        </Button> 
+        <Button x:Name="button_Copy" Content="Delete" Margin="51,527,0,0" Width="102" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="62" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" Style="{DynamicResource ButtonStyle1}">
+
+        </Button>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="215" Margin="335,225,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="445" Background="{x:Null}" SelectionBrush="#FF5D3E09" BorderBrush="#FF5D3E09">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="1"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Button x:Name="buttonClose" Content="X" FontSize="25" HorizontalAlignment="Stretch" Margin="795,50,0,0" VerticalAlignment="Top" Width="65" Height="55" Click="button1_Click" Style="{DynamicResource ButtonStyle1}" FontFamily="Ravie">
+            <Button.Background>
+                <ImageBrush ImageSource="images/wc.png"/>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="buttonMaxi" Content="[]" FontSize="25" HorizontalAlignment="Stretch" Margin="755,50,80,0" VerticalAlignment="Top" Width="65" Height="55" Click="button2_Click" Style="{DynamicResource ButtonStyle1}" FontFamily="Ravie">
+            <Button.Background>
+                <ImageBrush ImageSource="images/wc.png"/>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="buttonMini" Content="-" FontSize="55" HorizontalAlignment="Stretch" Margin="690,50,145,0" VerticalAlignment="Top" Width="65" Height="55" Click="button3_Click" Style="{DynamicResource ButtonStyle1}" FontFamily="Ravie">
+            <Button.Background>
+                <ImageBrush ImageSource="images/wc.png"/>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="25" Margin="90,50,0,0" VerticalAlignment="Top" Width="185" Background="{x:Null}" BorderBrush="#FF68461D">
+            <Menu.Effect>
+                <DropShadowEffect/>
+            </Menu.Effect>
+            <MenuItem Header="File"/>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="Schemas"/>
+            <MenuItem Header="Rhyme"/>
+        </Menu>
     </Grid>
 </Window>

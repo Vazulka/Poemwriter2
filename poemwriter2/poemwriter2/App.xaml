@@ -10,11 +10,17 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle x:Name="FormOfButton" RadiusX="25" RadiusY="50" Margin="2"  SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        <Rectangle x:Name="FormOfButton" RadiusX="25" RadiusY="50" Margin="2"  SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2">
+                            <Rectangle.Effect>
+                                <DropShadowEffect/>
+                            </Rectangle.Effect>
+                        </Rectangle>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+           
         </Style>
+        <SolidColorBrush x:Key="NormalForeground" Color="Black"/>
         <ImageBrush x:Key="ButtonNormalBackground" ImageSource="images/paper.png"/>
         <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF0C0B01"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
@@ -22,17 +28,17 @@
             <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
             <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Foreground" Value="#FF080000" />
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
-            <!--<Setter Property=""-->
+        
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Themes:ButtonChrome x:Name="Chrome" 
                                              BorderBrush="{TemplateBinding Background}" 
-                                             Background="{DynamicResource ButtonNormalBackground}" 
+                                             Background="{x:Null}" 
                                              RenderMouseOver="False" 
                                              RenderPressed= "False"
                                              RenderDefaulted="{TemplateBinding IsDefaulted}" 
