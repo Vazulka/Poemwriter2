@@ -5,66 +5,13 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="poemwriter2.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
-        <Style x:Key="ButtonFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle x:Name="FormOfButton" RadiusX="25" RadiusY="50" Margin="2"  SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2">
-                            <Rectangle.Effect>
-                                <DropShadowEffect/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-           
-        </Style>
-        <SolidColorBrush x:Key="NormalForeground" Color="Black"/>
-        <ImageBrush x:Key="ButtonNormalBackground" ImageSource="images/paper.png"/>
-        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF0C0B01"/>
-        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="#FF080000" />
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Poemwr.Windows.Theme;component/Poemwr.Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
         
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Themes:ButtonChrome x:Name="Chrome" 
-                                             BorderBrush="{TemplateBinding Background}" 
-                                             Background="{x:Null}" 
-                                             RenderMouseOver="False" 
-                                             RenderPressed= "False"
-                                             RenderDefaulted="{TemplateBinding IsDefaulted}" 
-                                             SnapsToDevicePixels="true" OpacityMask="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}" 
-                                              RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Themes:ButtonChrome>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsKeyboardFocused" Value="false">
-                                <Setter Property="RenderDefaulted" TargetName="Chrome" Value="false"/>
-                            </Trigger>
-                            <Trigger Property="ToggleButton.IsChecked" Value="true">
-                                <Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#ADADAD"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                        
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
 
     </Application.Resources>
 </Application>

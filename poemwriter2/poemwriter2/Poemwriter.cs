@@ -20,9 +20,13 @@ namespace poemwriter2
         public class Line
         {
             public static List<Line> lineList = new List<Line>();
+#pragma warning disable CS0649 // Field 'Poemwriter.Line.word' is never assigned to, and will always have its default value null
             public List<Words> word;
+#pragma warning restore CS0649 // Field 'Poemwriter.Line.word' is never assigned to, and will always have its default value null
             public string rhymeCode;
+#pragma warning disable CS0649 // Field 'Poemwriter.Line.rhymUrge' is never assigned to, and will always have its default value false
             public bool rhymUrge;
+#pragma warning restore CS0649 // Field 'Poemwriter.Line.rhymUrge' is never assigned to, and will always have its default value false
             public char penultVowel;
             public char lastVowel;
             public string rhythm;
@@ -55,7 +59,9 @@ namespace poemwriter2
                         if (rC[j].rhymeCode.Contains(temp))
                         {
                             ind = rC[j].rhymeCode.IndexOf(temp);
+#pragma warning disable CS0219 // The variable 'ok' is assigned but its value is never used
                             bool ok = false;
+#pragma warning restore CS0219 // The variable 'ok' is assigned but its value is never used
                             int whereIsEnd = rC[j].rhymeCode.Length - (rC[j].rhymeCode.IndexOf(temp) + aW[i].wordCode.Length);
                             if (!rC[j].rhymUrge || whereIsEnd > 2)
                             {
@@ -225,13 +231,13 @@ namespace poemwriter2
                 schemaList.Add(this);
 
             }
-            public void read()
+            public static void read()
             {
-
-                for (int i = 0; i < poemCode.Length; i++)
-                {
-                    poemCode[i] = Words.codemake(poemCode[i]);
-                }
+                string[] t = File.ReadAllLines("../../text/Schemas.txt", Encoding.Default);
+                //for (int i = 0; i < poemCode.Length; i++)
+                //{
+                //    poemCode[i] = Words.codemake(poemCode[i]);
+                //}
             }
             public static List<Schema> getList() { return schemaList; }
 

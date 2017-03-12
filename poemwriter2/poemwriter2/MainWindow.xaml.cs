@@ -22,6 +22,7 @@ namespace poemwriter2
     {
         public MainWindow()
         {
+            Poemwriter.Schema.read();
             InitializeComponent();
         }
 
@@ -44,5 +45,6 @@ namespace poemwriter2
         {
             this.WindowState = WindowState.Minimized;
         }
+ 
     }
 }
