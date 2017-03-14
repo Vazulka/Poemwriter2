@@ -8,3 +8,6 @@ The program will be make the following actions:
 -Make a clone from any text, and get all information from it to make a clone with different words.
 -It will possible to add own words and the program try get into the so strict poemform.
 -Always allowed to mess up, the metrical, the balanc of vowel, the order of sylabells, and the rhymemap.  
+
+If you have any question or proposal, write to me.
+Have a nice day
