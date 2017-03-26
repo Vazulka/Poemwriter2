@@ -3,7 +3,8 @@
                     xmlns:local="clr-namespace:Poemwr.Windows.Theme">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Buttonstyle.xaml"/>
-      
+        <ResourceDictionary Source="Menustyle.xaml"/>  
+        <ResourceDictionary Source="TextboxStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
         
 

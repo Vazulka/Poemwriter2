@@ -5,470 +5,772 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace poemwriter2
+
+class Poemwriter
 {
-    class Poemwriter
+    static Random r = new Random();
+
+    public enum ConnectionType
     {
-        static Random r = new Random();
-        public enum listchooser
-        {
-            none = 0,
-            toBasic = 1,
-            toNew = 2
-
-        }
-        public class Line
-        {
-            public static List<Line> lineList = new List<Line>();
-#pragma warning disable CS0649 // Field 'Poemwriter.Line.word' is never assigned to, and will always have its default value null
-            public List<Words> word;
-#pragma warning restore CS0649 // Field 'Poemwriter.Line.word' is never assigned to, and will always have its default value null
-            public string rhymeCode;
-#pragma warning disable CS0649 // Field 'Poemwriter.Line.rhymUrge' is never assigned to, and will always have its default value false
-            public bool rhymUrge;
-#pragma warning restore CS0649 // Field 'Poemwriter.Line.rhymUrge' is never assigned to, and will always have its default value false
-            public char penultVowel;
-            public char lastVowel;
-            public string rhythm;
-            public int length;
-
-            public Line(string r, string rm)
-            {
-                rhymeCode = r;
-                rhythm = rm;
-                length = rm.Length;
-                lineList.Add(this);
-            }
-            public static void adVowel(Line l, char v, bool first)
-            {
-                if (first) { l.penultVowel = v; }
-                else { l.lastVowel = v; }
-            }
-            public static void adVowel(Line l, string vs)
-            {
-
-            }
-            public static void adCut(List<Line> rC, List<Words> aW)
-            {
-                for (int i = 0; i < aW.Count; i++)
-                {
-                    string temp = aW[i].wordCode;
-                    for (int j = 0; j < rC.Count; j++)
-                    {
-                        int ind = 0;
-                        if (rC[j].rhymeCode.Contains(temp))
-                        {
-                            ind = rC[j].rhymeCode.IndexOf(temp);
-#pragma warning disable CS0219 // The variable 'ok' is assigned but its value is never used
-                            bool ok = false;
-#pragma warning restore CS0219 // The variable 'ok' is assigned but its value is never used
-                            int whereIsEnd = rC[j].rhymeCode.Length - (rC[j].rhymeCode.IndexOf(temp) + aW[i].wordCode.Length);
-                            if (!rC[j].rhymUrge || whereIsEnd > 2)
-                            {
-                                ok = true;
-                                break;
-                            }
-                            else if (whereIsEnd < 3)
-                            {
-                                for (int k = j; k > -1; k--)
-                                {
-                                    //if(whereIsEnd == 1 && rC[k].rhymeCode == rC[j].rhymeCode && rC[j].rhym == null || rC[j].rhym == aW[i].lastVowels) { ok = true; }
-                                    //if(whereIsEnd == 2&&rC[k].rhymeCode == rC[j].rhymeCode && rC[j].rhym == null || rC[j].rhym[0] == aW[i].lastVowels[1]) { ok = true; }
-                                }
-
-                            }
-                        }
-                        rC[j].rhymeCode.Remove(ind, temp.Length);
-                        rC[j].rhymeCode.Insert(ind, (char)97 + i.ToString());
-                    }
-                }
-
-            }
-        }
-        public class AdditionalMethods
-        {
-
-
-            public static List<string> ready = new List<string>();
-
-            public List<string> getlist() { return ready; }
-
-            public static void Reader(string[] t)
-            {
-                string toSchemaName = "";
-                List<string> toSchemaCode = new List<string>();
-                for (int i = 0; i < t.Length; i++)
-                {
-                    if (t[i][0] == '*') { toSchemaName = t[i].ToUpper(); }
-                    else if (t[i][0] == ';')
-                    {
-                        Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray());
-                        toSchemaCode.Clear();
-                    }
-                    else { toSchemaCode.Add(t[i]); }
-                }
-            }
-            public static void writerEditor(Schema chosedSchema, string[] rhymecode, string[] additionalWords)
-            {
-
-                for (int i = 0; i < chosedSchema.poemCode.Length; i++)
-                {
-                    Line l = new Line(rhymecode[i], chosedSchema.poemCode[i]);
-                }
-                //string[] rhymes = new string[chosedSchema.poemCode.Length];
-                //Words w = new Words();
-
-                //for (int i = 0; i < chosedSchema.poemCode.Length; i++)
-                //{
-                //    bool rymeurge = false;
-                //    for (int j = i - 1; j > -1; j--)
-                //    {
-                //        if (rhymecode[i] == rhymecode[j])
-                //        {
-                //            rymeurge = true;
-                //            rhymes[i] = rhymes[j];
-
-                //        }
-                //    }
-
-                //    bool nullGate = false;
-                //    while (nullGate == false)
-                //    {
-                //        nullGate = true;
-                //        int lineLength = chosedSchema.poemCode[i].Length;
-                //        int start = 0;
-                //        do
-                //    {                     
-
-                //        string part = chosedSchema.poemCode[i].Substring(start, percentRandom(lineLength - start));
-                //        if (start + part.Length == lineLength - 1)
-                //        {
-                //            if (rymeurge == true)
-                //            {
-                //                w = w.selection(part, rhymes[i][0].ToString(), true);
-                //                ready.Add(w.baseWord);
-                //            }
-                //            else
-                //            {
-                //                w = w.selection(part);
-                //                ready.Add(w.baseWord);
-                //                rhymes[i] = w.lastVowels.Length == 2 ? w.lastVowels[1].ToString() : w.lastVowels;
-                //            }
-                //        }
-                //        else if (start + part.Length == lineLength)
-                //        {
-                //            if (rymeurge == true)
-                //            {
-                //                w = w.selection(part, part.Length==1?rhymes[i][1].ToString(): rhymes[i], false);
-                //                ready.Add(w.baseWord);
-                //            }
-                //            else
-                //            {
-                //                w = w.selection(part);
-                //                ready.Add(w.baseWord);
-                //                rhymes[i] += w.lastVowels;
-                //            }
-                //        }
-                //        else
-                //            ready.Add(w.selection(part).baseWord);
-                //        start += part.Length;
-                //            if (w.wordCode == null)//----------------------------
-                //            {
-                //                nullGate = false;
-                //                break;
-                //            }
-
-
-                //    } while (start != lineLength);
-
-                //    }
-                //    ready.Add("\n");
-                //}
-
-            }
-            public void writer(string linecode, string start, string end, string rhymecode)
-            {
-
-            }
-            public static int percentRandom(int max)
-            {
-                int result = 0;
-                do
-                {
-                    int temp = r.Next(1, 101);
-                    int indx = temp < 1 ? 0 : temp < 3 ? 1 : temp < 22 ? 2 : temp < 57 ? 3 : temp < 84 ? 4 : temp < 94 ? 5 :
-                        temp < 96 ? 6 : temp < 97 ? 7 : temp < 98 ? 8 : temp < 99 ? 9 : temp == 100 ? 10 : 2;
-                    result = indx;
-                } while (max < result);
-
-                return result;
-            }
-        }
-        public class Schema
-        {
-            public string poemForm;
-            public string[] poemCode;
-            public static List<Schema> schemaList = new List<Schema>();
-            public Schema(string poemForm, string[] poemCode)
-            {
-                this.poemForm = poemForm;
-                this.poemCode = poemCode;
-                schemaList.Add(this);
-            }
-            public Schema(bool codedWords, string[] poemCode)
-            {
-                if (codedWords == false)
-                {
-                    this.poemForm = "Costume";
-                    read();
-
-                }
-                else
-                {
-                    this.poemForm = "Costume";
-                    this.poemCode = poemCode;
-                }
-                schemaList.Add(this);
-
-            }
-            public static void read()
-            {
-                string[] t = File.ReadAllLines("../../text/Schemas.txt", Encoding.Default);
-                //for (int i = 0; i < poemCode.Length; i++)
-                //{
-                //    poemCode[i] = Words.codemake(poemCode[i]);
-                //}
-            }
-            public static List<Schema> getList() { return schemaList; }
-
-        }
-        public class Words
-        {
-            public string baseWord;
-            public string wordCode;
-            public string lastVowels;
-            public string firstCode;
-            public string lastCode;
-            public static List<Words> basicWordList = new List<Words>();
-            public static List<Words> newWordlist = new List<Words>();
-            public static List<char> zarHang = new List<char>() { 'P', 'T', 'K', 'B', 'D', 'G' };
-            public static List<char> likvida = new List<char>() { 'L', 'R' };
-            public Words() { }
-            /// <summary>
-            /// none regular construktor
-            /// </summary>
-            /// <param name="bW"></param>
-            /// <param name="iCForWord">what type of list to get
-            /// 0=none, 1=basic, 2=new </param>
-            public Words(string bW, listchooser iCForWord)
-            {
-                baseWord = bW.ToUpper();
-                wordCode = codemake(baseWord);
-                lastVowels = lastVowel(baseWord);
-                firstCode = firsLastConsonent(baseWord, true);
-                lastCode = firsLastConsonent(baseWord, false);
-                if (iCForWord == listchooser.toNew) newWordlist.Add(this);
-                if (iCForWord == listchooser.toBasic) basicWordList.Add(this);
-
-            }
-            /// <summary>
-            /// regular constructor
-            /// </summary>
-            public Words(string[] input)
-            {
-                baseWord = input[0].ToUpper();
-                wordCode = input[1];
-                lastVowels = input[2];
-                firstCode = input[3];
-                lastCode = input[4];
-                basicWordList.Add(this);
-
-            }
-            public Words(string bW, string wC, string lV)
-            {
-                baseWord = bW.ToUpper();
-                wordCode = wC;
-                lastVowels = lV;
-                basicWordList.Add(this);
-            }
-            public Words selection(string code)
-            {
-                List<Words> temp = basicWordList.FindAll(x => x.wordCode == code).ToList();
-                if (temp.Count == 0)
-                    return null;
-                return temp[r.Next(temp.Count)];
-            }
-            public Words selection(string code, string lastvowles, bool justTheLast)
-            {
-                List<Words> temp;
-                if (justTheLast == true)
-                {
-                    temp = basicWordList.FindAll(x => x.wordCode == code && (x.lastVowels.Length == 2 ? x.lastVowels[1].ToString() :
-                      x.lastVowels) == lastvowles).ToList();
-                }
-                else
-                {
-                    temp = basicWordList.FindAll(x => x.wordCode == code && x.lastVowels == lastvowles).ToList();
-                }
-                if (temp.Count == 0)
-                    return null;
-                return temp[r.Next(temp.Count)];
-            }
-            public string firsLastConsonent(string w, bool first)
-            {
-                int counter = 0;
-                string result = "1";
-                if (!first) { counter = w.Length - 1; }
-                if (w.Length != 1)
-                {
-                    while (vwls(w[counter]) != true)
-                    {
-                        result += wordCheck(w[counter], w, counter);
-                        if (first) { counter++; }
-                        else { counter--; }
-
-                    }
-                }
-                return result;
-            }
-            public bool vwls(char x)
-            {
-                if (x == 'A' || x == 'Á' || x == 'E' || x == 'É' || x == 'U' || x == 'Ú'
-                    || x == 'Ü' || x == 'Ű' || x == 'O' || x == 'Ó' || x == 'Ö'
-                    || x == 'Ő' || x == 'I' || x == 'Í')
-                {
-                    return true;
-                }
-                return false;
-            }
-            public static string codemake(string code)
-            {
-                string pr;
-                char[] x = new char[code.Length];
-                for (int j = 0; j < code.Length; j++)
-                {
-                    x[j] = wordCheck(code[j], code, j);
-
-                }
-                pr = new string(x);
-                pr = pr.Replace("3", "");
-                pr = pr.Replace("45", "0");
-                pr = pr.Replace("4", "0");
-                pr = pr.Replace("5", "0");
-                pr = pr.Replace("200", "1");
-                pr = pr.Replace("0", "");
-                return pr;
-
-            }
-            public string lastVowel(string vwls)
-            {
-                string listbe;
-                int counter = 0;
-                for (int i = 0; i < vwls.Length; i++)
-                {
-                    if (this.vwls(vwls[i]) == true)
-                    {
-                        if (counter == 2) break;
-                        counter++;
-                    }
-                }
-                int l = 0;
-                char[] y = new char[counter];
-                for (int j = vwls.Length - 1; j > -1; j--)
-                {
-                    if (this.vwls(vwls[j]) == true)
-                    {
-                        y[l] = vwls[j];
-                        l++;
-                        if (counter == l) break;
-                    }
-                }
-                Array.Reverse(y);
-                listbe = new string(y);
-                return listbe;
-            }
-            public static string clearing(string nyers)
-            {
-
-                nyers = nyers.Replace(" ", "");
-                nyers = nyers.Replace("’", "");
-                nyers = nyers.Replace("!", "");
-                nyers = nyers.Replace("?", "");
-                nyers = nyers.Replace(".", "");
-                nyers = nyers.Replace(",", "");
-                nyers = nyers.Replace("(", "");
-                nyers = nyers.Replace(")", "");
-                nyers = nyers.Replace("{", "");
-                nyers = nyers.Replace("}", "");
-                nyers = nyers.Replace("'", "");
-                nyers = nyers.Replace(":", "");
-                nyers = nyers.Replace(";", "");
-                nyers = nyers.Replace(" ", "");
-                nyers = nyers.Replace("«", "");
-                nyers = nyers.Replace("»", "");
-                if (nyers.StartsWith("-"))
-                    nyers = nyers.Remove(0, 1);
-
-                return nyers;
-            }
-            public static char wordCheck(char x, string szo, int i)
-            {
-                char y;
-                if (x == 'A' || x == 'E' || x == 'U' || x == 'Ü' || x == 'O' || x == 'Ö' || x == 'I')
-                {
-                    y = '2';
-                    return y;
-                }
-                if (x == 'Á' || x == 'É' || x == 'Ú' || x == 'Ű' || x == 'Ó' || x == 'Ő' || x == 'Í')
-                {
-                    y = '1';
-                    return y;
-                }
-                if ((x == 'N' || x == 'L' || x == 'G' || x == 'T') && i != szo.Length - 1 && szo[i + 1] == 'Y')
-                {
-                    y = '3';
-                    return y;
-                }
-                if (zarHang.Contains(x))
-                {
-                    y = '4';
-                    return y;
-                }
-                if (likvida.Contains(x))
-                {
-                    y = '5';
-                    return y;
-                }
-                if (x == 'S' && i != szo.Length - 1 && szo[i + 1] == 'Z')
-                {
-                    y = '3';
-                    return y;
-                }
-                if (x == 'Z' && i != szo.Length - 1 && szo[i + 1] == 'S')
-                {
-                    y = '3';
-                    return y;
-                }
-                if (x == 'C' && i != szo.Length - 1 && szo[i + 1] == 'S')
-                {
-                    y = '3';
-                    return y;
-                }
-                y = '0';
-                return y;
-            }
-            public static void write()
-            {
-                StreamWriter sw = new StreamWriter("magyar3.txt", true, Encoding.Default);
-                for (int i = 0; i < basicWordList.Count; i++)
-                {
-                    string temp = basicWordList[i].baseWord + " " + basicWordList[i].wordCode + " " + basicWordList[i].lastVowels +
-                        " " + basicWordList[i].firstCode + " " + basicWordList[i].lastCode;
-                    sw.WriteLine(temp);
-                }
-                sw.Close();
-            }
-        }
+        free = 0,
+        defaultOne = 1,
+        zOne = 2,
+        lOne = 3,
+        two = 4
 
     }
-}
+    public class Line
+    {
+        public static List<string> ready = new List<string>();
+        public static List<Line> lineList = new List<Line>();
+        public static List<Words> addedword = new List<Words>();
+        public List<Words> wordsInLine = new List<Words>();
+        public string toneCode;
+        public char penultVowel;
+        public char lastVowel;
+        public string rhymCode;
+        public string rhythm;
+        public int length;
+        public bool addedWord = false;
+
+        public Line(string r, string rm)
+        {
+            toneCode = r;
+            rhymCode = rm;
+            length = rm.Length;
+            lineList.Add(this);
+        }
+        public static void readFromSchema()
+        {
+            string[] rhym = new string[] { "A", "B", "A", "B", "C", "D", "C", "D" };
+            for (int i = 0; i < Schema.schemaList[1].poemCode.Length; i++)
+            {
+                Line l = new Line(Schema.schemaList[1].poemCode[i], rhym[i]);
+            }
+        }
+        public static void adVowel(Line l, char v, bool first)
+        {
+            if (first) { l.penultVowel = v; }
+            else { l.lastVowel = v; }
+        }
+
+        public static void adVowel(Line l, string vs)
+        {
+
+        }
+        public static int percentRandom(int max)
+        {
+            int result = 0;
+            do
+            {
+                int temp = r.Next(1, 101);
+                int indx = temp < 1 ? 0 : temp < 10 ? 1 : temp < 33 ? 2 : temp < 65 ? 3 : temp < 91 ? 4 : temp < 95 ? 5 :
+                    temp < 96 ? 6 : temp < 97 ? 7 : 8;
+                result = indx;
+            } while (max < result);
+
+            return result;
+        }
+        public static int counter(string s)
+        {
+            int ndxOfString = s.Length - 1;
+            int result = 0;
+            while (s[ndxOfString] == '1' || s[ndxOfString] == '2' && ndxOfString != 0)
+            {
+                ndxOfString--;
+                result++;
+
+            }
+            return result;
+        }
+        public static void writer(List<Line> lineList)
+        {
+            for (int i = 0; i < lineList.Count; i++)
+            {
+                int errorcounter = 10;
+                bool rhymeUrge = false;
+                bool end = false;
+                string tone = lineList[i].toneCode;
+                int tonlengthNdx = tone.Length - 1;  //hossza az adott sornak indexben
+                int readerIndex = tonlengthNdx;      //az olvasó itt tart
+                do
+                {
+                    List<Words> templist = Words.basicWordList;
+                    int randLength = readerIndex < 2 ? 1 : percentRandom(readerIndex);
+                    string toCode = "";
+                    rhymeUrge = false;
+                    while (readerIndex > -1 && (tone[readerIndex] == '1' || tone[readerIndex] == '2') && randLength != 0)
+                    {
+                        if (readerIndex + 2 > tonlengthNdx && lineList[i].wordsInLine.Count == 0 ||
+                            (lineList[i].wordsInLine.Count == 1 && lineList[i].wordsInLine.Last().wordCode.Length < 2))
+                        {
+                            rhymeUrge = true;
+                        }
+
+
+                        toCode = toCode.Insert(0, tone[readerIndex].ToString());
+                        randLength--;
+                        readerIndex--;
+                    }
+                    if (toCode == "")
+                    {
+                        lineList[i].wordsInLine.Add(addedword[tone[readerIndex] - 65]);
+                        readerIndex--;
+                    }
+                    else
+                    {
+                        if (rhymeUrge)
+                        {
+                            if (lineList[i].wordsInLine.Count == 0)
+                            {
+                                if (toCode.Length == 1)
+                                {
+
+                                    if (lineList[i].lastVowel > 0)
+                                    {
+                                        templist = templist.FindAll(x => x.wordCode == toCode && x.lastVowels[0] == lineList[i].lastVowel);
+                                    }
+                                }
+                                else
+                                {
+                                    if (lineList[i].lastVowel < 60 && lineList[i].penultVowel < 60)
+                                    {
+                                        templist = templist.FindAll(x => x.wordCode == toCode);
+                                    }
+                                    else
+                                    {
+                                        if (lineList[i].lastVowel > 0)
+                                        {
+                                            templist = templist.FindAll(x => x.wordCode == toCode &&
+                                            lineList[i].lastVowel == (toCode.Length == 1 ? x.lastVowels[0] : x.lastVowels[1]));
+                                        }
+                                        if (toCode.Length != 1)
+                                        {
+                                            if (lineList[i].penultVowel > 0)
+                                            {
+                                                templist = templist.FindAll(x => x.wordCode == toCode && x.lastVowels[0] == lineList[i].penultVowel);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (lineList[i].penultVowel > 0)
+                                {
+                                    templist = templist.FindAll(x => x.wordCode == toCode && x.lastVowels[0] == lineList[i].penultVowel);
+                                }
+                                else
+                                {
+                                    templist = templist.FindAll(x => x.wordCode == toCode);
+                                }
+                            }
+                        }
+                        if (readerIndex > -1 && tone[readerIndex] == '2')
+                        {
+                            templist = templist.FindAll(x => x.first != (ConnectionType)4);
+                        }
+                        else if (readerIndex > -1 && tone[readerIndex] != '1')
+                        {
+                            templist = selector(addedword[tone[readerIndex] - 65], toCode, templist, true);
+                        }
+                        if (lineList[i].wordsInLine.Count != 0)
+                        {
+                            templist = selector(lineList[i].wordsInLine.Last(), toCode, templist, false);
+                        }
+                    }
+                    if (templist.Count != 0)
+                    {
+                        if (toCode != "")
+                        {
+                            Words newWordToLine = templist[r.Next(templist.Count - 1)];
+                            lineList[i].wordsInLine.Add(newWordToLine);
+                        }
+
+
+                        if (rhymeUrge)
+                        {
+                            if (lineList[i].wordsInLine[0].lastVowels.Length == 1)
+                            {
+                                lineList[i].lastVowel = lineList[i].wordsInLine[0].lastVowels[0];
+                                if (lineList[i].wordsInLine.Count > 1)
+                                {
+                                    lineList[i].penultVowel = (lineList[i].wordsInLine[1].lastVowels.Length == 1 ? lineList[i].wordsInLine[1].lastVowels[0] : lineList[i].wordsInLine[1].lastVowels[1]);
+                                }
+                            }
+                            else
+                            {
+                                lineList[i].penultVowel = lineList[i].wordsInLine[0].lastVowels[0];
+                                lineList[i].lastVowel = lineList[i].wordsInLine[0].lastVowels[1];
+                            }
+                            rhymeCheck(lineList, i);
+                        }
+
+                        if (readerIndex < 0) { end = true; }
+
+                    }
+                    else
+                    {
+                        readerIndex += toCode.Length;
+                        if (errorcounter == 0)
+                        {
+                            Console.WriteLine("GÁz van " + toCode + "nincs meg");
+                            break;
+                        }
+                        errorcounter--;
+                    }
+
+                } while (!end);
+
+            }
+        }
+
+        public static List<Words> selector(Words basis, string codePart, List<Words> list, bool firstConn)
+        {
+            if (firstConn)
+            {
+                switch (basis.last)
+                {
+                    case (ConnectionType)0:
+                        list = list.FindAll(x => x.first != (ConnectionType)4 && x.wordCode == codePart);
+                        break;
+                    case (ConnectionType)1:
+                        list = list.FindAll(x => x.first == (ConnectionType)0 && x.wordCode == codePart);
+                        break;
+                    case (ConnectionType)3:
+                        list = list.FindAll(x => x.first == (ConnectionType)0 && x.wordCode == codePart);
+                        break;
+                    case (ConnectionType)2:
+                        list = list.FindAll(x => (x.first == (ConnectionType)0 || x.first == (ConnectionType)3) && x.wordCode == codePart);
+                        break;
+                    default:
+                        list = list.FindAll(x => x.wordCode == codePart);
+                        break;
+
+                }
+
+                return list;
+            }
+            else
+            {
+                switch (basis.first)
+                {
+                    case (ConnectionType)1:
+                        list = list.FindAll(x => x.last == (ConnectionType)0 && x.wordCode == codePart);
+                        break;
+                    case (ConnectionType)2:
+                        list = list.FindAll(x => x.last == (ConnectionType)0 && x.wordCode == codePart);
+                        break;
+                    case (ConnectionType)3:
+                        list = list.FindAll(x => (x.last == (ConnectionType)0 || x.last == (ConnectionType)3)
+                        && x.wordCode == codePart);
+                        break;
+                    default:
+                        list = list.FindAll(x => x.wordCode == codePart);
+                        break;
+                }
+                return list;
+            }
+        }
+        public static void rhymeCheck(List<Line> lineList, int ndx)
+        {
+            for (int i = 0; i < lineList.Count; i++)
+            {
+                if (ndx != i && lineList[ndx].rhymCode == lineList[i].rhymCode)
+                {
+                    if (lineList[ndx].penultVowel > 0) { lineList[i].penultVowel = lineList[ndx].penultVowel; }
+                    if (lineList[ndx].lastVowel > 0) { lineList[i].lastVowel = lineList[ndx].lastVowel; }
+                }
+            }
+        }
+
+        public static void addWordAndRhym(List<Line> lineList, List<Words> ListOfAddedWords)
+        {
+            for (int i = 0; i < ListOfAddedWords.Count; i++)
+            {
+                bool gothca = false;
+                for (int j = 0; j < lineList.Count; j++)
+                {
+
+                    lineList[j].toneCode = findAndReplace(ListOfAddedWords[i], lineList[j], Convert.ToChar(i + 65), out gothca);
+                    if (lineList[j].lastVowel > 0 || lineList[j].penultVowel > 0)
+                    {
+                        rhymeCheck(lineList, j);
+                    }
+                    if (gothca) { break; }
+                }
+            }
+
+        }
+        public static string findAndReplace(Words addWord, Line baseLine, char listindex, out bool gotcha)
+        {
+            int indexOfWord = 0;
+            bool okToReplacing = false;
+            bool goodConnection = true;
+            if (baseLine.toneCode.Contains(addWord.wordCode) && (addWord.first != (ConnectionType)4 || baseLine.toneCode[indexOfWord - 1] != '2'))
+            {
+                indexOfWord = baseLine.toneCode.IndexOf(addWord.wordCode);
+                if (indexOfWord != 0 && baseLine.toneCode[indexOfWord - 1] > 60)
+                {
+                    char lastchar = baseLine.toneCode[indexOfWord - 1];
+                    if (addedword[(int)lastchar - 65].wordCode[addedword[(int)lastchar - 65].wordCode.Length - 1] == '2')
+                    {
+                        List<Words> temp = new List<Words>();
+                        temp.Add(addedword[(int)lastchar - 65]);
+                        temp = selector(addWord, temp[0].wordCode, temp, false);
+                        if (temp.Count == 0) { goodConnection = false; }
+                    }
+
+                }
+                if (goodConnection)
+                {
+                    int whereIsEnd = baseLine.toneCode.Length - (indexOfWord + addWord.wordCode.Length);
+                    if (whereIsEnd > 1)
+                    {
+
+                        okToReplacing = true;
+                    }
+                    else if (whereIsEnd == 1)
+                    {
+                        if (baseLine.penultVowel < 1 || (addWord.lastVowels.Length == 2 ?
+                            addWord.lastVowels[1] : addWord.lastVowels[0]).Equals(baseLine.penultVowel))
+                        {
+                            okToReplacing = true;
+                            if (baseLine.penultVowel < 1)
+                            {
+                                baseLine.penultVowel = addWord.lastVowels.Length == 2 ?
+                                    addWord.lastVowels[1] : addWord.lastVowels[0];
+                            }
+                        }
+                    }
+                    else if (whereIsEnd == 0)
+                    {
+                        if (addWord.wordCode.Length > 1)
+                        {
+                            if (baseLine.penultVowel < 1 || baseLine.penultVowel.Equals(addWord.lastVowels[0])
+                                && baseLine.lastVowel < 1 || baseLine.lastVowel.Equals(addWord.lastVowels[1]))
+                            {
+                                okToReplacing = true;
+                                if (baseLine.penultVowel < 1) { baseLine.penultVowel = addWord.lastVowels[0]; }
+                                if (baseLine.lastVowel < 1) { baseLine.lastVowel = addWord.lastVowels[1]; }
+                            }
+                        }
+                        else if (baseLine.lastVowel < 1 || baseLine.penultVowel.Equals(addWord.lastVowels[0]))
+                        {
+                            okToReplacing = true;
+                            if (baseLine.penultVowel < 1) { baseLine.penultVowel = addWord.lastVowels[0]; }
+                        }
+                    }
+                }
+            }
+
+            if (okToReplacing)
+            {
+                gotcha = true;
+                baseLine.addedWord = true;
+                baseLine.toneCode = baseLine.toneCode.Remove(indexOfWord, addWord.wordCode.Length)
+                    .Insert(indexOfWord, listindex.ToString());
+                return baseLine.toneCode;
+            }
+            gotcha = false;
+            return baseLine.toneCode;
+        }
+    }
+    public class AdditionalMethods
+    {
+
+
+        //public static void writerEditor(Schema chosedSchema, string[] rhymecode, string[] additionalWords)
+        //{
+
+        //    for (int i = 0; i < chosedSchema.poemCode.Length; i++)
+        //    {
+        //        Line l = new Line(rhymecode[i], chosedSchema.poemCode[i]);
+        //    }
+        //string[] rhymes = new string[chosedSchema.poemCode.Length];
+        //Words w = new Words();
+
+        //for (int i = 0; i < chosedSchema.poemCode.Length; i++)
+        //{
+        //    bool rymeurge = false;
+        //    for (int j = i - 1; j > -1; j--)
+        //    {
+        //        if (rhymecode[i] == rhymecode[j])
+        //        {
+        //            rymeurge = true;
+        //            rhymes[i] = rhymes[j];
+
+        //        }
+        //    }
+
+        //    bool nullGate = false;
+        //    while (nullGate == false)
+        //    {
+        //        nullGate = true;
+        //        int lineLength = chosedSchema.poemCode[i].Length;
+        //        int start = 0;
+        //        do
+        //    {                     
+
+        //        string part = chosedSchema.poemCode[i].Substring(start, percentRandom(lineLength - start));
+        //        if (start + part.Length == lineLength - 1)
+        //        {
+        //            if (rymeurge == true)
+        //            {
+        //                w = w.selection(part, rhymes[i][0].ToString(), true);
+        //                ready.Add(w.baseWord);
+        //            }
+        //            else
+        //            {
+        //                w = w.selection(part);
+        //                ready.Add(w.baseWord);
+        //                rhymes[i] = w.lastVowels.Length == 2 ? w.lastVowels[1].ToString() : w.lastVowels;
+        //            }
+        //        }
+        //        else if (start + part.Length == lineLength)
+        //        {
+        //            if (rymeurge == true)
+        //            {
+        //                w = w.selection(part, part.Length==1?rhymes[i][1].ToString(): rhymes[i], false);
+        //                ready.Add(w.baseWord);
+        //            }
+        //            else
+        //            {
+        //                w = w.selection(part);
+        //                ready.Add(w.baseWord);
+        //                rhymes[i] += w.lastVowels;
+        //            }
+        //        }
+        //        else
+        //            ready.Add(w.selection(part).baseWord);
+        //        start += part.Length;
+        //            if (w.wordCode == null)//----------------------------
+        //            {
+        //                nullGate = false;
+        //                break;
+        //            }
+
+
+        //    } while (start != lineLength);
+
+        //    }
+        //    ready.Add("\n");
+        //}
+
+        //}
+
+
+    }
+    public class Schema
+    {
+        public string poemForm;
+        public string[] poemCode;
+        public static List<Schema> schemaList = new List<Schema>();
+        public Schema(string poemForm, string[] poemCode)
+        {
+            this.poemForm = poemForm;
+            this.poemCode = poemCode;
+            schemaList.Add(this);
+        }
+        public Schema(bool codedWords, string[] poemCode)
+        {
+            if (codedWords == false)
+            {
+                this.poemForm = "Costume";
+                schemaCodeReader();
+
+            }
+            else
+            {
+                this.poemForm = "Costume";
+                this.poemCode = poemCode;
+            }
+            schemaList.Add(this);
+
+        }
+        public static void schemaCodeReader()
+        {
+            string[] t = File.ReadAllLines("../../text/Schemas.txt", Encoding.Default);
+            string toSchemaName = "";
+            List<string> toSchemaCode = new List<string>();
+            for (int i = 0; i < t.Length; i++)
+            {
+                if (t[i][0] == '*') { toSchemaName = t[i].ToUpper(); }
+                else if (t[i][0] == ';')
+                {
+                    Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray());
+                    toSchemaCode.Clear();
+                }
+                else { toSchemaCode.Add(t[i]); }
+            }
+
+        }
+        public static void schemaTextReader(bool fromTxt)
+        {
+            string[] arr;
+            string toSchemaName = "";
+            if (fromTxt)
+            {
+                arr = File.ReadAllLines("../../text/vers.txt", Encoding.Default);
+                toSchemaName = arr[0];
+
+            }
+            else
+            {
+                arr = Console.ReadLine().Split(' ');
+            }
+            List<string> toSchemaCode = new List<string>();
+            for (int i = 1; i < arr.Length; i++)
+            {
+                toSchemaCode.Add(Words.codemake(Words.clearing(arr[i].Replace(" ", "").ToUpper())));
+
+            }
+            Schema s = new Schema(toSchemaName, toSchemaCode.ToArray());
+        }
+
+
+    }
+    public class Words
+    {
+        public string baseWord;
+        public string wordCode;
+        public string lastVowels;
+        public string firstCode;
+        public ConnectionType first;
+        public ConnectionType last;
+        public string lastCode;
+        public static List<Words> basicWordList = new List<Words>();
+        public static List<Words> newWordlist = new List<Words>();
+        public static List<char> zarHang = new List<char>() { 'P', 'T', 'K', 'B', 'D', 'G' };
+        public static List<char> likvida = new List<char>() { 'L', 'R' };
+        public Words() { }
+
+        public Words(string bW, bool added)
+        {
+            baseWord = bW.ToUpper();
+            wordCode = codemake(baseWord.Replace(" ", ""));
+            lastVowels = lastVowel(baseWord);
+            firstCode = firsConnectCode(baseWord);
+            lastCode = lastConnectCode(baseWord);
+            first = switcher(firstCode);
+            last = switcher(lastCode);
+            if (added) Line.addedword.Add(this);
+            else basicWordList.Add(this);
+
+        }
+
+        public Words(string[] input)
+        {
+            baseWord = input[0].ToUpper();
+            wordCode = input[1];
+            lastVowels = input[2];
+            firstCode = input[3];
+            lastCode = input[4];
+            first = switcher(firstCode);
+            last = switcher(lastCode);
+            basicWordList.Add(this);
+
+        }
+        public Words(string bW, string wC, string lV)
+        {
+            baseWord = bW.ToUpper();
+            wordCode = wC;
+            lastVowels = lV;
+            basicWordList.Add(this);
+        }
+        public ConnectionType switcher(string code)
+        {
+
+            if (code == "10" || code == "130" || code == "145") { return (ConnectionType)1; }
+            if (code == "15") { return (ConnectionType)2; }
+            if (code == "14") { return (ConnectionType)3; }
+            if (code.Length > 2) { return (ConnectionType)4; }
+            else { return (ConnectionType)0; }
+        }
+        public static Words selection(string code)
+        {
+            List<Words> temp = basicWordList.FindAll(x => x.wordCode == code).ToList();
+            if (temp.Count == 0)
+                return null;
+            return temp[r.Next(temp.Count)];
+        }
+        public static Words selection(string code, string lastvowles, bool justTheLast)
+        {
+            List<Words> temp;
+            if (justTheLast == true)
+            {
+                temp = basicWordList.FindAll(x => x.wordCode == code && (x.lastVowels.Length == 2 ? x.lastVowels[1].ToString() :
+                  x.lastVowels) == lastvowles).ToList();
+            }
+            else
+            {
+                temp = basicWordList.FindAll(x => x.wordCode == code && x.lastVowels == lastvowles).ToList();
+            }
+            if (temp.Count == 0)
+                return null;
+            return temp[r.Next(temp.Count)];
+        }
+        public static string firsConnectCode(string w)
+        {
+            int counter = 0;
+            string result = "1";
+            if (w.Length != 1)
+            {
+                while (!vwls(w[counter]))
+                {
+                    result += wordCheck(w[counter], w, counter);
+                    counter++;
+
+                }
+            }
+            return result;
+        }
+        public static string lastConnectCode(string w)
+        {
+            int counter = w.Length - 1;
+            string result = "1";
+            if (w.Length != 1)
+            {
+                while (!vwls(w[counter]))
+                {
+                    result = result.Insert(1, (wordCheck(w[counter], w, counter)).ToString());
+                    counter--;
+                }
+            }
+            return result;
+
+        }
+        public static bool vwls(char x)
+        {
+            if (x == 'A' || x == 'Á' || x == 'E' || x == 'É' || x == 'U' || x == 'Ú'
+                || x == 'Ü' || x == 'Ű' || x == 'O' || x == 'Ó' || x == 'Ö'
+                || x == 'Ő' || x == 'I' || x == 'Í')
+            {
+                return true;
+            }
+            return false;
+        }
+        public static string codemake(string code)
+        {
+            string pr;
+            char[] x = new char[code.Length];
+            for (int j = 0; j < code.Length; j++)
+            {
+                x[j] = wordCheck(code[j], code, j);
+
+            }
+            pr = new string(x);
+            pr = pr.Replace("3", "");
+            pr = pr.Replace("45", "0");
+            pr = pr.Replace("4", "0");
+            pr = pr.Replace("5", "0");
+            pr = pr.Replace("200", "1");
+            pr = pr.Replace("0", "");
+            return pr;
+
+        }
+        public static string lastVowel(string baseword)
+        {
+            string listbe;
+            int counter = 0;
+            for (int i = 0; i < baseword.Length; i++)
+            {
+                if (vwls(baseword[i]))
+                {
+                    if (counter == 2) break;
+                    counter++;
+                }
+            }
+            int l = 0;
+            char[] y = new char[counter];
+            for (int j = baseword.Length - 1; j > -1; j--)
+            {
+                if (vwls(baseword[j]))
+                {
+                    y[l] = baseword[j];
+                    l++;
+                    if (counter == l) break;
+                }
+            }
+            Array.Reverse(y);
+            listbe = new string(y);
+            return listbe;
+        }
+        public static string clearing(string rawString)
+        {
+            char[] arr = rawString.Where(c => (char.IsLetter(c) || c == '-')).ToArray();
+
+            rawString = new string(arr);
+            return rawString;
+        }
+        public static char wordCheck(char x, string szo, int i)
+        {
+            char y;
+            if (x == 'A' || x == 'E' || x == 'U' || x == 'Ü' || x == 'O' || x == 'Ö' || x == 'I')
+            {
+                y = '2';
+                return y;
+            }
+            if (x == 'Á' || x == 'É' || x == 'Ú' || x == 'Ű' || x == 'Ó' || x == 'Ő' || x == 'Í')
+            {
+                y = '1';
+                return y;
+            }
+            if ((x == 'N' || x == 'L' || x == 'G' || x == 'T') && i != szo.Length - 1 && szo[i + 1] == 'Y')
+            {
+                y = '3';
+                return y;
+            }
+            if (zarHang.Contains(x))
+            {
+                y = '4';
+                return y;
+            }
+            if (likvida.Contains(x))
+            {
+                y = '5';
+                return y;
+            }
+            if (x == 'S' && i != szo.Length - 1 && szo[i + 1] == 'Z')
+            {
+                y = '3';
+                return y;
+            }
+            if (x == 'Z' && i != szo.Length - 1 && szo[i + 1] == 'S')
+            {
+                y = '3';
+                return y;
+            }
+            if (x == 'C' && i != szo.Length - 1 && szo[i + 1] == 'S')
+            {
+                y = '3';
+                return y;
+            }
+            y = '0';
+            return y;
+        }
+        public static void write()
+        {
+            StreamWriter sw = new StreamWriter("magyar3.txt", true, Encoding.Default);
+            for (int i = 0; i < basicWordList.Count; i++)
+            {
+                string temp = basicWordList[i].baseWord + " " + basicWordList[i].wordCode + " " + basicWordList[i].lastVowels +
+                    " " + basicWordList[i].firstCode + " " + basicWordList[i].lastCode;
+                sw.WriteLine(temp);
+            }
+            sw.Close();
+        }
+        public static void Read()
+        {
+            string file = "../../text/magyar3.txt";
+            StreamReader sr = new StreamReader(file, Encoding.Default);
+            while (!sr.EndOfStream)
+            {
+                string[] input = sr.ReadLine().Split(' ');
+                Words w = new Words(input);
+            }
+            sr.Close();
+        }
+    }
+    }
+

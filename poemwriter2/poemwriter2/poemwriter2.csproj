@@ -68,8 +68,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuSchemaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuSchemaWindow.xaml.cs">
+      <DependentUpon>MenuSchemaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Poemwriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -88,6 +95,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="fonts\Yesteryear.ttf" />
+    <Resource Include="fonts\QaskinBlack.ttf" />
+    <Resource Include="fonts\Mardian.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,14 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="text\fmg.txt" />
-    <Resource Include="text\magyar.txt" />
-    <Resource Include="text\magyar2.txt" />
     <Resource Include="text\magyar3.txt" />
-    <Resource Include="text\magyarszavak5.txt" />
     <Resource Include="text\Schemas.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\wc.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\paper2.png" />
@@ -120,6 +124,10 @@
       <Name>Poemwr.Windows.Theme</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\woodtable1.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

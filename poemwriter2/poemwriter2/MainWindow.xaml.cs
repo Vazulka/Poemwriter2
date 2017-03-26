@@ -20,6 +20,7 @@ namespace poemwriter2
     /// </summary>
     public partial class MainWindow : Window
     {
+     
         public MainWindow()
         {
             Poemwriter.Schema.read();
@@ -45,6 +46,12 @@ namespace poemwriter2
         {
             this.WindowState = WindowState.Minimized;
         }
- 
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuSchemaWindow mw = new MenuSchemaWindow();
+            mw.Show();
+
+        }
     }
 }
