@@ -19,17 +19,19 @@ namespace poemwriter2
     /// </summary>
     public partial class MenuSchemaWindow : Window
     {
+   
         public MenuSchemaWindow()
         {
             InitializeComponent();
             fill_list();
         }
-
+        
         void fill_list()
         {
-            for (int i = 0; i < Poemwriter.Schema.getList().Count; i++)
+            for (int i = 0; i < Poemwriter.Schema.schemaList.Count; i++)
             {
-                listBox.Items.Add(Poemwriter.Schema.getList()[i].poemForm);
+                string listelement = Poemwriter.Schema.schemaList[i].poemForm.ToString();
+                listBox.Items.Add(listelement);
             }
 
         }
@@ -37,6 +39,32 @@ namespace poemwriter2
         private void button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void select_from(object sender, SelectionChangedEventArgs e)
+        {
+            listBox2.Items.Clear();
+            Poemwriter.Schema s = Poemwriter.Schema.schemaList.Find(x => x.poemForm == listBox.SelectedItem.ToString());
+            for (int i = 0; i < s.poemCode.Length; i++)
+            {
+                listBox2.Items.Add(s.poemCode[i].ToString());
+
+            }
+          
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Poemwriter.Line.readFromSchema( Poemwriter.Schema.schemaList.Find(x => x.poemForm == listBox.SelectedItem.ToString()).poemCode);
+            MenuRhymeWindow mr = new MenuRhymeWindow();
+            mr.Show();
+            this.Close();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

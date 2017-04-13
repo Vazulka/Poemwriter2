@@ -5,14 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poemwriter2"
         mc:Ignorable="d"
-        Title="MenuSchemaWindow" Height="300" Width="300" AllowsTransparency="True" WindowStyle="None">
-    <Grid Background="#FF8B7050" RenderTransformOrigin="1.233,0.75">
-        <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="265,0,0,0" VerticalAlignment="Top" Width="27" Style="{DynamicResource ButtonStyle1}" Height="25" Click="button_Click"/>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="145" Margin="130,40,0,0" VerticalAlignment="Top" Width="140" Background="{x:Null}" ClipToBounds="True">
-            <ListBox.Effect>
-                <DropShadowEffect/>
-            </ListBox.Effect>
+        Title="MenuSchemaWindow" 
+        Height="600" 
+        Width="700" 
+        AllowsTransparency="True" 
+        WindowStyle="None" 
+        Icon="images/paper.png" 
+        Background="Transparent"
+        MouseDown="Window_MouseDown">
+    <Grid Margin="-20,-30,-35,-30" >
+        <Grid.Background>
+            <ImageBrush ImageSource="images/pergamen07.png"/>
+        </Grid.Background>
+        <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="658,65,0,0" VerticalAlignment="Top" Width="27" FontSize="30"
+                Style="{DynamicResource BaseButtonStyle}" Height="40" Click="button_Click"/>
+        <ListBox x:Name="listBox" 
+                 HorizontalAlignment="Left" 
+                 Height="210" 
+                 Margin="100,225,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="240" 
+                 Background="{x:Null}" 
+                 ClipToBounds="True"
+                 SelectionChanged="select_from"                 
+               
+                 >
+            <ListBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}">Peru</SolidColorBrush>
+            </ListBox.Resources>
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+            </Border>
         </ListBox>
-        <Label x:Name="label" Content="Strófa stílusok" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-0.192" Width="110" FontFamily="Papyrus" FontStyle="Italic"/>
+        <Label x:Name="label" 
+               Content="Strófa stílusok" 
+               HorizontalAlignment="Left" 
+               Margin="60,125,0,0" 
+               VerticalAlignment="Top" 
+               RenderTransformOrigin="0.263,-0.192" 
+               Width="265" FontSize="36" FontFamily="Papyrus" FontStyle="Italic"/>
+        <ListBox x:Name="listBox2" 
+        	HorizontalAlignment="Left" 
+        	Height="210" 
+        	Margin="405,225,0,0" 
+        	VerticalAlignment="Top" 
+        	Width="240" 
+        	Background="{x:Null}" 
+        	ClipToBounds="True">
+        </ListBox>
+        <Label x:Name="label1"  Content="Mora kód" 
+               HorizontalAlignment="Left" 
+               Margin="405,0,0,468" 
+               VerticalAlignment="Bottom" 
+               RenderTransformOrigin="0.263,-0.192" 
+               Width="240" FontSize="36" FontFamily="Papyrus" FontStyle="Italic"/>
+        <Button x:Name="button1" Content="Alkalmaz" FontFamily="Papyrus" HorizontalAlignment="Left" Margin="305,490,0,0" VerticalAlignment="Top" Width="145" Style="{DynamicResource BaseButtonStyle}" Height="60" FontSize="36" Click="button1_Click"/>
     </Grid>
 </Window>

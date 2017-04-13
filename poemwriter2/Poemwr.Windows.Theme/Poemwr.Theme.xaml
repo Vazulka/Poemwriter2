@@ -5,6 +5,7 @@
         <ResourceDictionary Source="Buttonstyle.xaml"/>
         <ResourceDictionary Source="Menustyle.xaml"/>  
         <ResourceDictionary Source="TextboxStyle.xaml"/>
+        <ResourceDictionary Source="ListBoxStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
         
 

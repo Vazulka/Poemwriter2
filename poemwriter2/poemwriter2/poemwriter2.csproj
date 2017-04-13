@@ -56,10 +56,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AddWordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AddWordWindow.xaml.cs">
+      <DependentUpon>AddWordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -68,12 +75,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MenuRhymeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuSchemaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuBoxWindow.xaml.cs">
+      <DependentUpon>MenuBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuRhymeWindow.xaml.cs">
+      <DependentUpon>MenuRhymeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuSchemaWindow.xaml.cs">
       <DependentUpon>MenuSchemaWindow.xaml</DependentUpon>
     </Compile>
@@ -127,7 +148,12 @@
   <ItemGroup>
     <Resource Include="images\woodtable1.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\pergamen07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\woodtable.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,92 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poemwriter2"
         mc:Ignorable="d"
-        Title="Poemwriter" Height="700" Width="900" Icon="images/paper.png" WindowStyle="None" AllowsTransparency="True" >
-    <Window.Background>
-        <ImageBrush ImageSource="images/woodtable1.png"/>
-    </Window.Background>
-    <Grid  MouseLeftButtonDown="move">
-        <Button x:Name="button" 
+        Title="Poemwriter" Height="700" Width="900" Background="Transparent" Icon="images/paper.png" WindowStyle="None" AllowsTransparency="True" Margin="-1,-1,-1,-1" MouseDown="Window_MouseDown" >
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/woodtable.png"/>
+        </Grid.Background>
+        <Button x:Name="Write" 
                 Content="Write" 
-                Margin="51,0,0,115" 
-                Width="102" 
+                Margin="51,0,0,269" 
+                Width="129" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
                 Height="60" 
                 FontFamily="Papyrus" 
-        FontSize="20" Style="{DynamicResource ButtonStyle1}"   >
+         
+               
+              
+        FontSize="40" Style="{DynamicResource BaseButtonStyle}" RenderTransformOrigin="0.627,0.417" Click="Write_Click"   >
 
         </Button>
         <Menu x:Name="menu" HorizontalAlignment="Left" Height="15" Margin="10,0,0,0" VerticalAlignment="Top" Width="497" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Background="{x:Null}"/>
-        <Button x:Name="button_Copy" 
+        <Button x:Name="delete" 
                 Content="Delete" 
-                Margin="51,0,0,35" 
-                Width="102"  
+                Margin="51,0,0,104" 
+                Width="129"  
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
                 Height="60" 
                 FontFamily="Papyrus" 
-                FontSize="20" Style="{DynamicResource ButtonStyle1}" >
-
+                FontSize="40" Style="{DynamicResource BaseButtonStyle}" Click="delete_Click" >
         </Button>
-        <TextBox x:Name="textBox" 
-                 HorizontalAlignment="Left"                
-                 Height="305" 
-                 Margin="280,225,0,0" 
-                 TextWrapping="Wrap"  
-                 VerticalAlignment="Top" 
-                 Width="540" 
-                 SelectionBrush="{x:Null}" BorderBrush="Transparent" Style="{DynamicResource TextBoxStyle1}">
-            <TextBox.Background>
+        <Grid Margin="281,226,50,45">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="150" ShadowDepth="13"/>
+            </Grid.Effect>
+            <Grid.Background>
                 <ImageBrush ImageSource="images/paper2.png"/>
-            </TextBox.Background>
-            <TextBox.Effect>
-                <DropShadowEffect ShadowDepth="1"/>
-            </TextBox.Effect>
-        </TextBox>
-        <Button x:Name="buttonClose" Content="X" FontSize="25" HorizontalAlignment="Right" Margin="800,50,35,0" VerticalAlignment="Top" Width="65" Height="55" Click="button1_Click"  FontFamily="Ravie" Style="{DynamicResource ButtonStyle1}">
+            </Grid.Background>
+            <TextBox x:Name="textBox"              
+                HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"               
+                     BorderBrush="Transparent"  
+                     Margin="110,50,104,50" 
+                     Style="{DynamicResource TextBoxStyle1}"  />
+        </Grid>
+        <Button x:Name="buttonClose" Content="X" FontSize="45" HorizontalAlignment="Right" 
+                Margin="0,15,14,0" VerticalAlignment="Top" Width="65" Height="55" Click="button1_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}"/>
+        <Button x:Name="buttonMaxi" Content="[]" FontSize="45" HorizontalAlignment="Right" 
+                Margin="0,15,94,0" VerticalAlignment="Top" Width="65" Height="55" Click="button2_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}"/>
+        <Button x:Name="buttonMini" Content="-" FontSize="65" HorizontalAlignment="Right" 
+                Margin="0,15,174,0" VerticalAlignment="Top" Width="65" Height="55" Click="button3_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}" />
 
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="buttonMaxi" Content="[]" FontSize="25" HorizontalAlignment="Right" Margin="730,50,105,0" VerticalAlignment="Top" Width="65" Height="55" Click="button2_Click"  FontFamily="Ravie" Style="{DynamicResource ButtonStyle1}">
-
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="buttonMini" Content="-" FontSize="55" HorizontalAlignment="Right" Margin="660,50,175,0" VerticalAlignment="Top" Width="65" Height="55" Click="button3_Click"  FontFamily="Ravie" Style="{DynamicResource ButtonStyle1}" Background="{x:Null}" BorderBrush="{x:Null}">
-
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="25" Margin="90,50,0,0" VerticalAlignment="Top" Width="245" Background="{x:Null}" BorderBrush="#FF68461D" FontFamily="Papyrus" FontSize="16">
+        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="55" Margin="15,15,0,0" VerticalAlignment="Top" Width="435" Background="{x:Null}" BorderBrush="#FF68461D" FontFamily="Papyrus" FontSize="16">
             <Menu.Effect>
-                <DropShadowEffect/>
+                <DropShadowEffect Color="#FFE4D0B3" ShadowDepth="5" BlurRadius="5"/>
             </Menu.Effect>
-            <MenuItem x:Name="fileMenu" Header="File" FontFamily="Papyrus" FontSize="16" >
-                <MenuItem Header="New" HorizontalAlignment="Left" Width="160"/>
-                <MenuItem Header="Exit" HorizontalAlignment="Left" Width="160"/>
+            <MenuItem x:Name="fileMenu" Header="File" FontFamily="Papyrus" FontSize="36" Width="95" Template="{DynamicResource MenuItemControlTemplate1}">
+                <MenuItem Header="New" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="Exit" HorizontalAlignment="Left" Width="160" FontSize="24"/>
             </MenuItem>
-            <MenuItem x:Name="editMenu" Header="Edit" FontFamily="Papyrus" FontSize="16" Template="{DynamicResource MenuItemControlTemplate1}" >
-                <MenuItem Header="Undo" HorizontalAlignment="Left" Width="160"/>
-                <MenuItem Header="Cut" HorizontalAlignment="Left" Width="160"/>
-                <MenuItem Header="Copy" HorizontalAlignment="Left" Width="160"/>
-                <MenuItem Header="Paste" HorizontalAlignment="Left" Width="160"/>
-                <MenuItem Header="Save as txt" HorizontalAlignment="Left" Width="160"/>
+            <MenuItem x:Name="editMenu" Header="Edit" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="95" >
+                <MenuItem Header="Undo" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="Cut" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="Copy" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="Paste" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="Save as txt" HorizontalAlignment="Left" Width="160" FontSize="24"/>
             </MenuItem>
-            <MenuItem x:Name="schemaMenu" Header="Schemas" FontFamily="Papyrus" FontSize="16"  >
-                <MenuItem Header="Schema" HorizontalAlignment="Left" Width="154"  Height="26" Click="MenuItem_Click"/>
-                <MenuItem Header="Rhyme" HorizontalAlignment="Left" Width="154"  Height="26"/>
-                <MenuItem Header="Rythm" HorizontalAlignment="Left" Width="154"  Height="26"/>
+            <MenuItem x:Name="schemaMenu" Header="Schemas" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="145"  >
+                <MenuItem Header="From list"  FontSize="24"  Click="MenuItem_Click" Template="{DynamicResource MenuItemControlTemplate2}" Margin="10,0" />
+                <MenuItem Header="From txt"  FontSize="24" Click="MenuItem_Click_1" Template="{DynamicResource MenuItemControlTemplate2}" Margin="10,0" />
+                <MenuItem Header="From box" HorizontalAlignment="Left" Width="145" FontSize="24" Margin="10,0" Template="{DynamicResource MenuItemControlTemplate2}" Click="MenuItem_Click_2" />
 
             </MenuItem>
-            <MenuItem x:Name="helpMenu" Header="Help" FontFamily="Papyrus" FontSize="16" Template="{DynamicResource MenuItemControlTemplate1}" >
-                <MenuItem Header="How work" HorizontalAlignment="Left" Width="160"/>
+            <MenuItem x:Name="helpMenu" Header="Help" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="100" >
+                <MenuItem Header="How?" HorizontalAlignment="Left" Width="160" FontSize="24"/>
             </MenuItem>
         </Menu>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="460,90,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource ButtonFocusVisual}" Height="50"/>
+        <Button x:Name="button" 
+                Content="Start" 
+                Width="129" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                Height="60" 
+                FontFamily="Papyrus" Margin="51,0,0,184" 
+                FontSize="40"
+                Style="{DynamicResource BaseButtonStyle}" Click="start"/>
     </Grid>
 </Window>

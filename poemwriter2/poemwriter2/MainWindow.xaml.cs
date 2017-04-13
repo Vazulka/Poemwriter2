@@ -23,14 +23,12 @@ namespace poemwriter2
      
         public MainWindow()
         {
-            Poemwriter.Schema.read();
+            Poemwriter.Words.Read();
+            Poemwriter.Schema.schemaCodeReader();
             InitializeComponent();
         }
 
-        private void move(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+  
          private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -51,6 +49,56 @@ namespace poemwriter2
         {
             MenuSchemaWindow mw = new MenuSchemaWindow();
             mw.Show();
+
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            AddWordWindow aw2 = new AddWordWindow();
+            aw2.Show();
+        }
+
+        private void Write_Click(object sender, RoutedEventArgs e)
+        {
+            Poemwriter.Line.addWordAndRhym(Poemwriter.Line.lineList, Poemwriter.Line.addedword);
+            Poemwriter.Line.writer(Poemwriter.Line.lineList);
+           
+            for (int i = 0; i < Poemwriter.Line.lineList.Count; i++)
+            {
+                for (int j = Poemwriter.Line.lineList[i].wordsInLine.Count-1; j >-1; j--)
+                {
+                    textBox.Text += (" " + Poemwriter.Line.lineList[i].wordsInLine[j].baseWord).ToLower();
+                }
+                textBox.Text += "\n";
+            }
+            
+        }
+
+        private void start(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < Poemwriter.Line.lineList.Count; i++)
+            {
+                Poemwriter.Line.lineList[i].wordsInLine.Clear();
+                Poemwriter.Line.lineList[i].lastVowel = '\0';
+                Poemwriter.Line.lineList[i].penultVowel = '\0';
+            }
+            textBox.IsReadOnly = false;
+            textBox.Clear();
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
 
         }
     }

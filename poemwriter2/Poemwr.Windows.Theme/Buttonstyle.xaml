@@ -4,121 +4,46 @@
 
 
 
-
-    <Style x:Key="ButtonFocusVisual" TargetType="Button">
+    <Style x:Key="BaseButtonStyle"
+   TargetType="{x:Type ButtonBase}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" /> 
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Bottom" />
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect Color="#FF342714" ShadowDepth="5" BlurRadius="10"/>
+                <DropShadowEffect Color="#FFC19351" ShadowDepth="5" BlurRadius="10"/>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Themes:ButtonChrome Name="test1" 
-                                         Effect ="{TemplateBinding Effect}"
-                                         SnapsToDevicePixels="true" >
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"                                     
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Themes:ButtonChrome>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border Name="Chrome"     
+                            SnapsToDevicePixels="true"
+                            Effect="{TemplateBinding Effect}">
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  RecognizesAccessKey="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
                     <ControlTemplate.Triggers>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard x:Name="MouseDownAnimation">
-                                        <DoubleAnimation Storyboard.TargetName="test1"                                                        
-                                                        Storyboard.TargetProperty="Effect.ShadowDepth"
-                                                        From="5"
-                                                         To="0"
-                                                        Duration="0:0:0:2"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Name="MyButton1"
-                               RadiusX="5"
-                               RadiusY="25" >
-                        <Rectangle.Fill>
-                            <RadialGradientBrush  Center="0.5,0.5" RadiusX="0.6" RadiusY="0.5" 
-                                                 GradientOrigin="0.6,0.3">
-                                <GradientStop Color="Transparent" Offset="0.9"></GradientStop>
-                                <GradientStop Color="#FF422A11" Offset="0.9"></GradientStop>
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-             
-
-                </ControlTemplate>
-            </Setter.Value>            
-        </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="FontFamily" Value="Papyrus"/>
-    </Style>
-    
-    <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF703517" />
-    <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
-        
-        <!--<Setter Property="Background" Value="Transparent"/>-->
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-        <!--<Setter Property="Effect" >
-            <Setter.Value>
-                <DropShadowEffect ShadowDepth="5"/>
-            </Setter.Value>
-        </Setter>-->
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Themes:ButtonChrome x:Name="Chrome"                                         
-                                         Effect ="{TemplateBinding Effect}"
-                                         SnapsToDevicePixels="true" >
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                      
-                                      
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Themes:ButtonChrome>
-                    <ControlTemplate.Triggers>
-                        
-                        <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true"/>
-                                <Condition Property="IsPressed" Value="true"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard x:Name="MouseDownAnimation">
-                                        <DoubleAnimation Storyboard.TargetName="Chrome"                                                        
-                                                        Storyboard.TargetProperty="Effect.ShadowDepth"
-                                                        From="5"
-                                                         To="0"
-                                                        Duration="0:0:0:2"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions> 
-                        </MultiTrigger>     
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Effect" TargetName="Chrome" >
+                                <Setter.Value>
+                                    <DropShadowEffect Color="White"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="Peru"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
+   
 
 
 

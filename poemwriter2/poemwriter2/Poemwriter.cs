@@ -17,7 +17,6 @@ class Poemwriter
         zOne = 2,
         lOne = 3,
         two = 4
-
     }
     public class Line
     {
@@ -29,23 +28,41 @@ class Poemwriter
         public char penultVowel;
         public char lastVowel;
         public string rhymCode;
-        public string rhythm;
         public int length;
         public bool addedWord = false;
 
-        public Line(string r, string rm)
+        public Line(string r)
         {
             toneCode = r;
-            rhymCode = rm;
-            length = rm.Length;
+            length = toneCode.Length;
             lineList.Add(this);
         }
-        public static void readFromSchema()
+        public Line (string [] poemcode)
         {
-            string[] rhym = new string[] { "A", "B", "A", "B", "C", "D", "C", "D" };
-            for (int i = 0; i < Schema.schemaList[1].poemCode.Length; i++)
+            for (int i = 0; i < poemcode.Length; i++)
             {
-                Line l = new Line(Schema.schemaList[1].poemCode[i], rhym[i]);
+                toneCode = poemcode[i];
+                lineList.Add(this);
+            }
+        }
+        //public static void readFromSchema() //csak konzol teszthez
+        //{
+            
+       
+            
+        //}
+        public static void readFromSchema(string [] tone)
+        {
+            for (int i = 0; i < tone.Length; i++)
+            {
+                Line l = new Line(tone[i]);
+            }
+        }
+        public static void addRhymToListElements(string[] rhym)
+        {
+            for (int i = 0; i < lineList.Count; i++)
+            {
+                lineList[i].rhymCode = rhym[i];
             }
         }
         public static void adVowel(Line l, char v, bool first)
@@ -79,7 +96,6 @@ class Poemwriter
             {
                 ndxOfString--;
                 result++;
-
             }
             return result;
         }
@@ -91,8 +107,8 @@ class Poemwriter
                 bool rhymeUrge = false;
                 bool end = false;
                 string tone = lineList[i].toneCode;
-                int tonlengthNdx = tone.Length - 1;  //hossza az adott sornak indexben
-                int readerIndex = tonlengthNdx;      //az olvasó itt tart
+                int tonlengthNdx = tone.Length - 1; 
+                int readerIndex = tonlengthNdx;      
                 do
                 {
                     List<Words> templist = Words.basicWordList;
@@ -106,8 +122,6 @@ class Poemwriter
                         {
                             rhymeUrge = true;
                         }
-
-
                         toCode = toCode.Insert(0, tone[readerIndex].ToString());
                         randLength--;
                         readerIndex--;
@@ -186,8 +200,6 @@ class Poemwriter
                             Words newWordToLine = templist[r.Next(templist.Count - 1)];
                             lineList[i].wordsInLine.Add(newWordToLine);
                         }
-
-
                         if (rhymeUrge)
                         {
                             if (lineList[i].wordsInLine[0].lastVowels.Length == 1)
@@ -207,7 +219,6 @@ class Poemwriter
                         }
 
                         if (readerIndex < 0) { end = true; }
-
                     }
                     else
                     {
@@ -221,7 +232,6 @@ class Poemwriter
                     }
 
                 } while (!end);
-
             }
         }
 
@@ -246,7 +256,6 @@ class Poemwriter
                     default:
                         list = list.FindAll(x => x.wordCode == codePart);
                         break;
-
                 }
 
                 return list;
@@ -376,95 +385,13 @@ class Poemwriter
             return baseLine.toneCode;
         }
     }
-    public class AdditionalMethods
-    {
 
-
-        //public static void writerEditor(Schema chosedSchema, string[] rhymecode, string[] additionalWords)
-        //{
-
-        //    for (int i = 0; i < chosedSchema.poemCode.Length; i++)
-        //    {
-        //        Line l = new Line(rhymecode[i], chosedSchema.poemCode[i]);
-        //    }
-        //string[] rhymes = new string[chosedSchema.poemCode.Length];
-        //Words w = new Words();
-
-        //for (int i = 0; i < chosedSchema.poemCode.Length; i++)
-        //{
-        //    bool rymeurge = false;
-        //    for (int j = i - 1; j > -1; j--)
-        //    {
-        //        if (rhymecode[i] == rhymecode[j])
-        //        {
-        //            rymeurge = true;
-        //            rhymes[i] = rhymes[j];
-
-        //        }
-        //    }
-
-        //    bool nullGate = false;
-        //    while (nullGate == false)
-        //    {
-        //        nullGate = true;
-        //        int lineLength = chosedSchema.poemCode[i].Length;
-        //        int start = 0;
-        //        do
-        //    {                     
-
-        //        string part = chosedSchema.poemCode[i].Substring(start, percentRandom(lineLength - start));
-        //        if (start + part.Length == lineLength - 1)
-        //        {
-        //            if (rymeurge == true)
-        //            {
-        //                w = w.selection(part, rhymes[i][0].ToString(), true);
-        //                ready.Add(w.baseWord);
-        //            }
-        //            else
-        //            {
-        //                w = w.selection(part);
-        //                ready.Add(w.baseWord);
-        //                rhymes[i] = w.lastVowels.Length == 2 ? w.lastVowels[1].ToString() : w.lastVowels;
-        //            }
-        //        }
-        //        else if (start + part.Length == lineLength)
-        //        {
-        //            if (rymeurge == true)
-        //            {
-        //                w = w.selection(part, part.Length==1?rhymes[i][1].ToString(): rhymes[i], false);
-        //                ready.Add(w.baseWord);
-        //            }
-        //            else
-        //            {
-        //                w = w.selection(part);
-        //                ready.Add(w.baseWord);
-        //                rhymes[i] += w.lastVowels;
-        //            }
-        //        }
-        //        else
-        //            ready.Add(w.selection(part).baseWord);
-        //        start += part.Length;
-        //            if (w.wordCode == null)//----------------------------
-        //            {
-        //                nullGate = false;
-        //                break;
-        //            }
-
-
-        //    } while (start != lineLength);
-
-        //    }
-        //    ready.Add("\n");
-        //}
-
-        //}
-
-
-    }
     public class Schema
     {
         public string poemForm;
         public string[] poemCode;
+        public string strictRyme;
+
         public static List<Schema> schemaList = new List<Schema>();
         public Schema(string poemForm, string[] poemCode)
         {
@@ -490,16 +417,23 @@ class Poemwriter
         }
         public static void schemaCodeReader()
         {
+        
             string[] t = File.ReadAllLines("../../text/Schemas.txt", Encoding.Default);
             string toSchemaName = "";
+            string toRhyme = "";
             List<string> toSchemaCode = new List<string>();
             for (int i = 0; i < t.Length; i++)
             {
                 if (t[i][0] == '*') { toSchemaName = t[i].ToUpper(); }
                 else if (t[i][0] == ';')
                 {
-                    Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray());
+                    if (toRhyme.Length > 0) { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()) { strictRyme = toRhyme.Remove(0, 1) }; }
+                    else { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()); }
                     toSchemaCode.Clear();
+                }
+                else if(t[i][0]=='#')
+                {
+                    toRhyme = t[i];
                 }
                 else { toSchemaCode.Add(t[i]); }
             }
@@ -620,7 +554,6 @@ class Poemwriter
                 {
                     result += wordCheck(w[counter], w, counter);
                     counter++;
-
                 }
             }
             return result;
@@ -638,7 +571,6 @@ class Poemwriter
                 }
             }
             return result;
-
         }
         public static bool vwls(char x)
         {
@@ -657,7 +589,6 @@ class Poemwriter
             for (int j = 0; j < code.Length; j++)
             {
                 x[j] = wordCheck(code[j], code, j);
-
             }
             pr = new string(x);
             pr = pr.Replace("3", "");
@@ -667,11 +598,10 @@ class Poemwriter
             pr = pr.Replace("200", "1");
             pr = pr.Replace("0", "");
             return pr;
-
         }
         public static string lastVowel(string baseword)
         {
-            string listbe;
+            string toList;
             int counter = 0;
             for (int i = 0; i < baseword.Length; i++)
             {
@@ -693,8 +623,8 @@ class Poemwriter
                 }
             }
             Array.Reverse(y);
-            listbe = new string(y);
-            return listbe;
+            toList = new string(y);
+            return toList;
         }
         public static string clearing(string rawString)
         {
@@ -703,7 +633,7 @@ class Poemwriter
             rawString = new string(arr);
             return rawString;
         }
-        public static char wordCheck(char x, string szo, int i)
+        public static char wordCheck(char x, string word, int i)
         {
             char y;
             if (x == 'A' || x == 'E' || x == 'U' || x == 'Ü' || x == 'O' || x == 'Ö' || x == 'I')
@@ -716,7 +646,7 @@ class Poemwriter
                 y = '1';
                 return y;
             }
-            if ((x == 'N' || x == 'L' || x == 'G' || x == 'T') && i != szo.Length - 1 && szo[i + 1] == 'Y')
+            if ((x == 'N' || x == 'L' || x == 'G' || x == 'T') && i != word.Length - 1 && word[i + 1] == 'Y')
             {
                 y = '3';
                 return y;
@@ -731,17 +661,17 @@ class Poemwriter
                 y = '5';
                 return y;
             }
-            if (x == 'S' && i != szo.Length - 1 && szo[i + 1] == 'Z')
+            if (x == 'S' && i != word.Length - 1 && word[i + 1] == 'Z')
             {
                 y = '3';
                 return y;
             }
-            if (x == 'Z' && i != szo.Length - 1 && szo[i + 1] == 'S')
+            if (x == 'Z' && i != word.Length - 1 && word[i + 1] == 'S')
             {
                 y = '3';
                 return y;
             }
-            if (x == 'C' && i != szo.Length - 1 && szo[i + 1] == 'S')
+            if (x == 'C' && i != word.Length - 1 && word[i + 1] == 'S')
             {
                 y = '3';
                 return y;
