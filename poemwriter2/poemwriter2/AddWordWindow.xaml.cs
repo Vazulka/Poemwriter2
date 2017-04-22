@@ -89,6 +89,7 @@ namespace poemwriter2
                     Poemwriter.Words nw = new Poemwriter.Words(listtb[i].Text, true);
                 }
             }
+            Poemwriter.Line.addWordAndRhym(Poemwriter.Line.lineList, Poemwriter.Line.addedword);
             this.Close();
         }
     }

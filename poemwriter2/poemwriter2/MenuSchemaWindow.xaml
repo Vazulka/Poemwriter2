@@ -12,7 +12,8 @@
         WindowStyle="None" 
         Icon="images/paper.png" 
         Background="Transparent"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="-20,-30,-35,-30" >
         <Grid.Background>
             <ImageBrush ImageSource="images/pergamen07.png"/>

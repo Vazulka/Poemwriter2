@@ -11,19 +11,48 @@
         AllowsTransparency="True" 
         WindowStyle="None" 
         Icon="images/paper.png" 
-        Background="Transparent"
-        MouseDown="Window_MouseDown">
+        Background="Transparent" MouseEnter="Window_MouseEnter"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="-20,-30,-35,-30" >
         <Grid.Background>
             <ImageBrush ImageSource="images/pergamen07.png"/>
         </Grid.Background>
         <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="658,65,0,0" VerticalAlignment="Top" Width="27" FontSize="30"
     		Style="{DynamicResource BaseButtonStyle}" Height="40" Click="button_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="105,142,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="275" Margin="105,225,0,0" TextWrapping="Wrap" Text="Paste" VerticalAlignment="Top" Width="235" Style="{DynamicResource TextBoxStyle1}"/>
-        <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="275" Margin="405,225,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="235" Style="{DynamicResource TextBoxStyle1}"/>
-        <Button x:Name="button1" Content="Coding" HorizontalAlignment="Left" Margin="200,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="coding_click"/>
-        <Button x:Name="button2" Content="Add" HorizontalAlignment="Left" Margin="490,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}"/>
+        <TextBox x:Name="textBox" 
+                 HorizontalAlignment="Left" 
+                 Height="23" Margin="105,142,0,0"                
+                 TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Background="Transparent" FontFamily="Arial"/>
+        <TextBox x:Name="textBoxBase" 
+                 AcceptsReturn="True"
+                 HorizontalAlignment="Left" 
+                 Height="150" Margin="70,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="590" Style="{DynamicResource TextBoxStyle1}" TextChanged="textBox1_TextChanged" >
+            
+        </TextBox>
+        <TextBox x:Name="textBoxTone" 
+                 HorizontalAlignment="Left" 
+                 Height="130" Margin="70,370,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="590" Style="{DynamicResource TextBoxStyle1}"/>
+        <Button x:Name="button1" 
+                Content="Coding" 
+                HorizontalAlignment="Left" 
+                Margin="70,522,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="coding_click" FontSize="20" FontFamily="Papyrus"/>
+        <Button x:Name="button2" 
+                Content="Add" 
+                HorizontalAlignment="Left" 
+                Margin="335,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="add_click" FontSize="18" FontFamily="Papyrus"/>
+        <Label x:Name="label" Content="Shema name" HorizontalAlignment="Left" Margin="105,107,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
+        <Label x:Name="label1" 
+               Content="Paste text here" 
+               HorizontalAlignment="Left" Margin="221,229,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="48"
+               >
+           
+        </Label>
+        <Label x:Name="label_Copy" Content="Tone code" HorizontalAlignment="Left" Margin="290,340,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
+        <Label x:Name="label_Copy1" Content="Base script" HorizontalAlignment="Left" Margin="290,155,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
+        <Button x:Name="button2_Copy" 
+        	Content="Save" 
+        	HorizontalAlignment="Left" 
+        	Margin="585,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="Save_click" FontSize="18" FontFamily="Papyrus"/>
 
     </Grid>
 </Window>

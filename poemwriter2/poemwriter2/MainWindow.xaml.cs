@@ -21,17 +21,26 @@ namespace poemwriter2
     public partial class MainWindow : Window
     {
      
+        
         public MainWindow()
         {
             Poemwriter.Words.Read();
             Poemwriter.Schema.schemaCodeReader();
             InitializeComponent();
         }
-
-  
-         private void button1_Click(object sender, RoutedEventArgs e)
+        private void allTrue()
         {
-            this.Close();
+            fList.IsEnabled = true;
+            fBox.IsEnabled = true;
+            fTxt.IsEnabled = true;
+        }
+        private void changeEnable(MenuItem mI)
+        {
+            MenuItem[] mArr = new MenuItem[] { fList, fBox, fTxt };
+            for (int i = 0; i < mArr.Length; i++)
+            {
+                if (mArr[i] != mI) { mArr[i].IsEnabled = false; }
+            }
         }
         private void button2_Click(object sender, RoutedEventArgs e)
         {
@@ -44,31 +53,14 @@ namespace poemwriter2
         {
             this.WindowState = WindowState.Minimized;
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MenuSchemaWindow mw = new MenuSchemaWindow();
-            mw.Show();
-
-        }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            AddWordWindow aw2 = new AddWordWindow();
-            aw2.Show();
-        }
-
         private void Write_Click(object sender, RoutedEventArgs e)
-        {
-            Poemwriter.Line.addWordAndRhym(Poemwriter.Line.lineList, Poemwriter.Line.addedword);
-            Poemwriter.Line.writer(Poemwriter.Line.lineList);
-           
+        {        
+            Poemwriter.Line.writer(Poemwriter.Line.lineList);           
             for (int i = 0; i < Poemwriter.Line.lineList.Count; i++)
             {
                 for (int j = Poemwriter.Line.lineList[i].wordsInLine.Count-1; j >-1; j--)
@@ -76,13 +68,7 @@ namespace poemwriter2
                     textBox.Text += (" " + Poemwriter.Line.lineList[i].wordsInLine[j].baseWord).ToLower();
                 }
                 textBox.Text += "\n";
-            }
-            
-        }
-
-        private void start(object sender, RoutedEventArgs e)
-        {
-
+            }            
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)
@@ -94,12 +80,34 @@ namespace poemwriter2
                 Poemwriter.Line.lineList[i].penultVowel = '\0';
             }
             textBox.IsReadOnly = false;
+            allTrue();
+            MenuRhymeWindow.Permission.lista.Clear();
             textBox.Clear();
-        }
-
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        }        
+        private void New_click(object sender, RoutedEventArgs e)
         {
-
+            textBox.Clear();
+            allTrue();
+            MenuRhymeWindow.Permission.lista.Clear();
+            Poemwriter.Line.lineList.Clear();
+            Poemwriter.Line.addedword.Clear();
+            Poemwriter.Words.newWordlist.Clear();
+        }
+        private void fList_Click(object sender, RoutedEventArgs e)
+        {
+            changeEnable(fList);
+            MenuSchemaWindow mw = new MenuSchemaWindow();
+            mw.Show();
+        }
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void fBox_Click(object sender, RoutedEventArgs e)
+        {
+            changeEnable(fBox);
+            MenuBoxWindow mbw = new MenuBoxWindow();
+            mbw.Show();
         }
     }
 }

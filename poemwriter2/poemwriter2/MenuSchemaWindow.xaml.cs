@@ -55,6 +55,8 @@ namespace poemwriter2
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            
+            Poemwriter.Line.lineList.Clear();
             Poemwriter.Line.readFromSchema( Poemwriter.Schema.schemaList.Find(x => x.poemForm == listBox.SelectedItem.ToString()).poemCode);
             MenuRhymeWindow mr = new MenuRhymeWindow();
             mr.Show();

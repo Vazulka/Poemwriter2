@@ -79,7 +79,8 @@ namespace poemwriter2
             TextBox tb1 = sender as TextBox;
             for (int i = 0; i < Permission.lista.Count; i++)
             {    
-                if (tb1.Text == Permission.lista[i].rhymeCode.Text && Permission.lista.Find(x => x.rhymeCode.Name == tb1.Name).lineEnd.Content.ToString()!=Permission.lista[i].lineEnd.Content.ToString())
+                if (tb1.Text == Permission.lista[i].rhymeCode.Text && 
+                    Permission.lista.Find(x => x.rhymeCode.Name == tb1.Name).lineEnd.Content.ToString()!=Permission.lista[i].lineEnd.Content.ToString())
                 {
                     tb1.Clear();
                     break;

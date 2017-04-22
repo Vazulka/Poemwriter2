@@ -19,8 +19,7 @@ class Poemwriter
         two = 4
     }
     public class Line
-    {
-        public static List<string> ready = new List<string>();
+    {   
         public static List<Line> lineList = new List<Line>();
         public static List<Words> addedword = new List<Words>();
         public List<Words> wordsInLine = new List<Words>();
@@ -424,18 +423,21 @@ class Poemwriter
             List<string> toSchemaCode = new List<string>();
             for (int i = 0; i < t.Length; i++)
             {
-                if (t[i][0] == '*') { toSchemaName = t[i].ToUpper(); }
-                else if (t[i][0] == ';')
+                if (t[i] != "")
                 {
-                    if (toRhyme.Length > 0) { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()) { strictRyme = toRhyme.Remove(0, 1) }; }
-                    else { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()); }
-                    toSchemaCode.Clear();
+                    if (t[i][0] == '*') { toSchemaName = t[i].ToUpper(); }
+                    else if (t[i][0] == ';')
+                    {
+                        if (toRhyme.Length > 0) { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()) { strictRyme = toRhyme.Remove(0, 1) }; }
+                        else { Schema s = new Schema(toSchemaName.Remove(0, 1), toSchemaCode.ToArray()); }
+                        toSchemaCode.Clear();
+                    }
+                    else if (t[i][0] == '#')
+                    {
+                        toRhyme = t[i];
+                    }
+                    else { toSchemaCode.Add(t[i]); }
                 }
-                else if(t[i][0]=='#')
-                {
-                    toRhyme = t[i];
-                }
-                else { toSchemaCode.Add(t[i]); }
             }
 
         }
@@ -460,6 +462,16 @@ class Poemwriter
 
             }
             Schema s = new Schema(toSchemaName, toSchemaCode.ToArray());
+        }
+        public static void schemaWriter(List<string>  codedText)
+        {
+            StreamWriter sw = new StreamWriter("../../text/Schemas.txt", true, Encoding.UTF8);
+            for (int i = 0; i < codedText.Count; i++)
+            {
+                if (codedText[i] != "") { sw.WriteLine(codedText[i]); }
+               
+            }
+            sw.Close();
         }
 
 

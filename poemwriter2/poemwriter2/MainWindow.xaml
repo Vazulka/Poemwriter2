@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poemwriter2"
         mc:Ignorable="d"
-        Title="Poemwriter" Height="700" Width="900" Background="Transparent" Icon="images/paper.png" WindowStyle="None" AllowsTransparency="True" Margin="-1,-1,-1,-1" MouseDown="Window_MouseDown" >
+        Title="Poemwriter" Height="700" Width="900" 
+        Background="Transparent" Icon="images/paper.png" WindowStyle="None" 
+        AllowsTransparency="True" 
+        Margin="-1,-1,-1,-1" 
+        MouseDown="Window_MouseDown" 
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.Background>
@@ -18,8 +23,7 @@
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
                 Height="60" 
-                FontFamily="Papyrus" 
-         
+                FontFamily="Papyrus"         
                
               
         FontSize="40" Style="{DynamicResource BaseButtonStyle}" RenderTransformOrigin="0.627,0.417" Click="Write_Click"   >
@@ -43,15 +47,18 @@
             <Grid.Background>
                 <ImageBrush ImageSource="images/paper2.png"/>
             </Grid.Background>
-            <TextBox x:Name="textBox"              
-                HorizontalAlignment="Stretch"
-                     VerticalAlignment="Stretch"               
+            <Viewbox 
+                Margin="60,40,60,40"
+                StretchDirection="DownOnly"
+                >
+                <TextBox x:Name="textBox"            
                      BorderBrush="Transparent"  
-                     Margin="110,50,104,50" 
-                     Style="{DynamicResource TextBoxStyle1}"  />
+                     Margin="0,0,0,0"
+                     Style="{DynamicResource TextBoxStyle1}"   />
+            </Viewbox>
         </Grid>
         <Button x:Name="buttonClose" Content="X" FontSize="45" HorizontalAlignment="Right" 
-                Margin="0,15,14,0" VerticalAlignment="Top" Width="65" Height="55" Click="button1_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}"/>
+                Margin="0,15,14,0" VerticalAlignment="Top" Width="65" Height="55" Click="exit_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}"/>
         <Button x:Name="buttonMaxi" Content="[]" FontSize="45" HorizontalAlignment="Right" 
                 Margin="0,15,94,0" VerticalAlignment="Top" Width="65" Height="55" Click="button2_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}"/>
         <Button x:Name="buttonMini" Content="-" FontSize="65" HorizontalAlignment="Right" 
@@ -62,34 +69,22 @@
                 <DropShadowEffect Color="#FFE4D0B3" ShadowDepth="5" BlurRadius="5"/>
             </Menu.Effect>
             <MenuItem x:Name="fileMenu" Header="File" FontFamily="Papyrus" FontSize="36" Width="95" Template="{DynamicResource MenuItemControlTemplate1}">
-                <MenuItem Header="New" HorizontalAlignment="Left" Width="160" FontSize="24"/>
-                <MenuItem Header="Exit" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="New" HorizontalAlignment="Left" Width="160" FontSize="24" Click="New_click" Template="{DynamicResource MenuItemControlTemplate2}"/>
+                <MenuItem Header="Exit" HorizontalAlignment="Left" Width="160" FontSize="24" Click="exit_Click" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
             <MenuItem x:Name="editMenu" Header="Edit" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="95" >
-                <MenuItem Header="Undo" HorizontalAlignment="Left" Width="160" FontSize="24"/>
-                <MenuItem Header="Cut" HorizontalAlignment="Left" Width="160" FontSize="24"/>
-                <MenuItem Header="Copy" HorizontalAlignment="Left" Width="160" FontSize="24"/>
-                <MenuItem Header="Paste" HorizontalAlignment="Left" Width="160" FontSize="24"/>
-                <MenuItem Header="Save as txt" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+     
+                <MenuItem Header="Save as txt" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
             <MenuItem x:Name="schemaMenu" Header="Schemas" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="145"  >
-                <MenuItem Header="From list"  FontSize="24"  Click="MenuItem_Click" Template="{DynamicResource MenuItemControlTemplate2}" Margin="10,0" />
-                <MenuItem Header="From txt"  FontSize="24" Click="MenuItem_Click_1" Template="{DynamicResource MenuItemControlTemplate2}" Margin="10,0" />
-                <MenuItem Header="From box" HorizontalAlignment="Left" Width="145" FontSize="24" Margin="10,0" Template="{DynamicResource MenuItemControlTemplate2}" Click="MenuItem_Click_2" />
+                <MenuItem x:Name="fList" Header="From list"  FontSize="24"  Click="fList_Click" Template="{DynamicResource MenuItemControlTemplate2}"  />
+                <MenuItem x:Name="fTxt" Header="From txt"  FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"  />
+                <MenuItem x:Name="fBox" Header="From box" HorizontalAlignment="Left" Width="145" FontSize="24"  Template="{DynamicResource MenuItemControlTemplate2}" Click="fBox_Click" />
 
             </MenuItem>
             <MenuItem x:Name="helpMenu" Header="Help" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="100" >
-                <MenuItem Header="How?" HorizontalAlignment="Left" Width="160" FontSize="24"/>
+                <MenuItem Header="How?" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
         </Menu>
-        <Button x:Name="button" 
-                Content="Start" 
-                Width="129" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom" 
-                Height="60" 
-                FontFamily="Papyrus" Margin="51,0,0,184" 
-                FontSize="40"
-                Style="{DynamicResource BaseButtonStyle}" Click="start"/>
     </Grid>
 </Window>
