@@ -20,7 +20,15 @@
         </Grid.Background>
         <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="608,75,0,0" VerticalAlignment="Top" Width="27" FontSize="30"
     		Style="{DynamicResource BaseButtonStyle}" Height="40" Click="button_Click"/>
-        <Button x:Name="button1" Content="use &amp; next" HorizontalAlignment="Left" Margin="270,490,0,0" VerticalAlignment="Top" Width="180" Style="{DynamicResource BaseButtonStyle}" Height="40" FontSize="36" FontFamily="Papyrus" Click="button1_Click"/>
-
+        <Button x:Name="button1" Content="Alkalmaz &amp; tovább" HorizontalAlignment="Left" Margin="225,490,0,0" VerticalAlignment="Top" Width="290" Style="{DynamicResource BaseButtonStyle}" Height="40" FontSize="36" FontFamily="Papyrus" Click="button1_Click"/>
+        <Label x:Name="label" Content="Sorvég" HorizontalAlignment="Left" Margin="180,140,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="label_Copy" Content="Rím kód" HorizontalAlignment="Left" Margin="470,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,1.154" Width="120" FontFamily="Papyrus" FontSize="16" FontWeight="Bold"/>
+        <ScrollViewer Margin="0,190,10,195">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Name="stackpChildren1"  Margin="50,0,0,0" Width="315" />
+                <StackPanel Name="stackpChildren2" Width="285" Margin="0,0,0,0" />
+       
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

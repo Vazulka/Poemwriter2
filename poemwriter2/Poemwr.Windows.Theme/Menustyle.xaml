@@ -23,6 +23,7 @@
                                   Margin="4,0,6,0" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                   VerticalAlignment="Center"
+                                  
                                   />
                 <Path x:Name="GlyphPanel" 
                       Data="M0,5.1L1.7,5.2 3.4,7.1 8,0.4 9.2,0 3.3,10.8z" 

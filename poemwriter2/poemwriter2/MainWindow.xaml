@@ -17,8 +17,8 @@
             <ImageBrush ImageSource="images/woodtable.png"/>
         </Grid.Background>
         <Button x:Name="Write" 
-                Content="Write" 
-                Margin="51,0,0,269" 
+                Content="Írás" 
+                Margin="51,0,0,284" 
                 Width="129" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
@@ -26,23 +26,23 @@
                 FontFamily="Papyrus"         
                
               
-        FontSize="40" Style="{DynamicResource BaseButtonStyle}" RenderTransformOrigin="0.627,0.417" Click="Write_Click"   >
+        FontSize="40" Style="{DynamicResource BaseButtonStyle}" Foreground="#FFA36632" RenderTransformOrigin="0.627,0.417" Click="Write_Click"   >
 
         </Button>
-        <Menu x:Name="menu" HorizontalAlignment="Left" Height="15" Margin="10,0,0,0" VerticalAlignment="Top" Width="497" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Background="{x:Null}"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="70" Margin="10,0,0,0" VerticalAlignment="Top" Width="621" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Background="{x:Null}"/>
         <Button x:Name="delete" 
-                Content="Delete" 
-                Margin="51,0,0,104" 
+                Content="Törlés" 
+                Margin="51,0,0,179" 
                 Width="129"  
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
                 Height="60" 
                 FontFamily="Papyrus" 
-                FontSize="40" Style="{DynamicResource BaseButtonStyle}" Click="delete_Click" >
+                FontSize="40" Style="{DynamicResource BaseButtonStyle}" Foreground="#FFA36632" Click="delete_Click" >
         </Button>
         <Grid Margin="281,226,50,45">
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="150" ShadowDepth="13"/>
+                <DropShadowEffect BlurRadius="5" ShadowDepth="30" Direction="340"/>
             </Grid.Effect>
             <Grid.Background>
                 <ImageBrush ImageSource="images/paper2.png"/>
@@ -64,26 +64,26 @@
         <Button x:Name="buttonMini" Content="-" FontSize="65" HorizontalAlignment="Right" 
                 Margin="0,15,174,0" VerticalAlignment="Top" Width="65" Height="55" Click="button3_Click"  FontFamily="Ravie" Style="{DynamicResource BaseButtonStyle}" />
 
-        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="55" Margin="15,15,0,0" VerticalAlignment="Top" Width="435" Background="{x:Null}" BorderBrush="#FF68461D" FontFamily="Papyrus" FontSize="16">
+        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="55" Margin="15,15,0,0" VerticalAlignment="Top" Width="631" Background="{x:Null}" BorderBrush="#FFA36632" FontFamily="Papyrus" FontSize="16">
             <Menu.Effect>
                 <DropShadowEffect Color="#FFE4D0B3" ShadowDepth="5" BlurRadius="5"/>
             </Menu.Effect>
-            <MenuItem x:Name="fileMenu" Header="File" FontFamily="Papyrus" FontSize="36" Width="95" Template="{DynamicResource MenuItemControlTemplate1}">
-                <MenuItem Header="New" HorizontalAlignment="Left" Width="160" FontSize="24" Click="New_click" Template="{DynamicResource MenuItemControlTemplate2}"/>
-                <MenuItem Header="Exit" HorizontalAlignment="Left" Width="160" FontSize="24" Click="exit_Click" Template="{DynamicResource MenuItemControlTemplate2}"/>
+            <MenuItem x:Name="fileMenu" Header="Fájl" FontFamily="Papyrus" FontSize="36" Width="76" Template="{DynamicResource MenuItemControlTemplate1}">
+                <MenuItem Header="Új" HorizontalAlignment="Left" Width="160" FontSize="24" Click="New_click" Template="{DynamicResource MenuItemControlTemplate2}"/>
+                <MenuItem Header="Kilép" HorizontalAlignment="Left" Width="160" FontSize="24" Click="exit_Click" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
-            <MenuItem x:Name="editMenu" Header="Edit" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="95" >
-     
-                <MenuItem Header="Save as txt" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
+            <MenuItem x:Name="editMenu" Header="Szerkesztés" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="205" >
+
+                <MenuItem Header="Mentés" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
-            <MenuItem x:Name="schemaMenu" Header="Schemas" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="145"  >
-                <MenuItem x:Name="fList" Header="From list"  FontSize="24"  Click="fList_Click" Template="{DynamicResource MenuItemControlTemplate2}"  />
-                <MenuItem x:Name="fTxt" Header="From txt"  FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"  />
-                <MenuItem x:Name="fBox" Header="From box" HorizontalAlignment="Left" Width="145" FontSize="24"  Template="{DynamicResource MenuItemControlTemplate2}" Click="fBox_Click" />
+            <MenuItem x:Name="schemaMenu" Header="Sémák" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="116"  >
+                <MenuItem x:Name="fList" Header="Listából"  FontSize="24"  Click="fList_Click" Template="{DynamicResource MenuItemControlTemplate2}"  />
+                <MenuItem x:Name="fTxt" Header="Txt-ből"  FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}" Click="fTxt_Click"  />
+                <MenuItem x:Name="fBox" Header="Szövegből" HorizontalAlignment="Left" Width="145" FontSize="24"  Template="{DynamicResource MenuItemControlTemplate2}" Click="fBox_Click" />
 
             </MenuItem>
-            <MenuItem x:Name="helpMenu" Header="Help" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="100" >
-                <MenuItem Header="How?" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
+            <MenuItem x:Name="helpMenu" Header="Segítség" FontFamily="Papyrus" FontSize="36" Template="{DynamicResource MenuItemControlTemplate1}" Width="159" >
+                <MenuItem Header="Hogyan" HorizontalAlignment="Left" Width="160" FontSize="24" Template="{DynamicResource MenuItemControlTemplate2}"/>
             </MenuItem>
         </Menu>
     </Grid>

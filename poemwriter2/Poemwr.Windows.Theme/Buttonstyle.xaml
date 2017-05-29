@@ -6,7 +6,7 @@
 
     <Style x:Key="BaseButtonStyle"
    TargetType="{x:Type ButtonBase}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" /> 
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Bottom" />

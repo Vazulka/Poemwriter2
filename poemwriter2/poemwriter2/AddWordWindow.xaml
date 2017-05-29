@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poemwriter2"
         mc:Ignorable="d"
-        Title="AddWordWindow"  Height="600" 
+        Title="AddWordWindow"  Height="900" 
         Width="700" 
         AllowsTransparency="True" 
         WindowStyle="None" 
@@ -17,20 +17,23 @@
         <Grid.Background>
             <ImageBrush ImageSource="images/pergamen07.png"/>
         </Grid.Background>
-        <ScrollViewer Margin="0,170,10,195">
+        <ScrollViewer Margin="0,390,10,195">
             <StackPanel Orientation="Horizontal">
-                <StackPanel Name="stackpChildren1" Width="310" Margin="50,0,0,0" />
-                <StackPanel Name="stackpChildren2" Width="315" Margin="0,0,0,0" />
+                <StackPanel Name="stackpChildren1" Width="125" Margin="50,0,0,0" />
+                <StackPanel Name="stackpChildren2" Width="245" Margin="0,0,0,0" />
+                <StackPanel Name="stackpChildren3" Width="245" Margin="0,0,0,0" />
             </StackPanel>
         </ScrollViewer>
-        <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="608,75,0,0" VerticalAlignment="Top" Width="27" FontSize="30"
-    		Style="{DynamicResource BaseButtonStyle}" Height="40" Click="button_Click" />
+        <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="630,125,0,0" VerticalAlignment="Top" Width="27" FontSize="30"
+    		Style="{DynamicResource BaseButtonStyle}" Height="40" Click="button_Click" RenderTransformOrigin="2.111,1.875" />
         <Button x:Name="button1" 
-                Content="Add &amp;next" 
+                Content="Hozzáad &amp; tovább" 
                 FontSize="36" 
                 FontFamily="Papyrus" 
                 Click="button1_Click" 
-                HorizontalAlignment="Left" Margin="285,505,0,0" VerticalAlignment="Top" Width="190" Style="{DynamicResource BaseButtonStyle}" Height="45"/>
-        <Label x:Name="label" Content="Hozzá adott szavak" HorizontalAlignment="Left" Margin="190,105,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="25" Width="350"/>
+                HorizontalAlignment="Left" Margin="230,770,0,0" VerticalAlignment="Top" Width="295" Style="{DynamicResource BaseButtonStyle}" Height="45"/>
+        <Label x:Name="label" Content="Hozzá adott szavak" HorizontalAlignment="Left" Margin="245,336,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="25" Width="255" FontWeight="Bold"/>
+        <TextBox x:Name="lineListBox" HorizontalAlignment="Left" FontSize="18" Height="145" Margin="335,175,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" Background="{x:Null}"/>
+        <Label x:Name="label_Copy" Content="A kiválasztott vers&#xD;&#xA;mora kódja soronként" HorizontalAlignment="Left" Margin="70,175,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="25" Width="250" FontWeight="Bold" Height="100"/>
     </Grid>
 </Window>

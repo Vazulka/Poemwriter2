@@ -36,20 +36,7 @@ class Poemwriter
             length = toneCode.Length;
             lineList.Add(this);
         }
-        public Line (string [] poemcode)
-        {
-            for (int i = 0; i < poemcode.Length; i++)
-            {
-                toneCode = poemcode[i];
-                lineList.Add(this);
-            }
-        }
-        //public static void readFromSchema() //csak konzol teszthez
-        //{
-            
-       
-            
-        //}
+ 
         public static void readFromSchema(string [] tone)
         {
             for (int i = 0; i < tone.Length; i++)
@@ -64,23 +51,14 @@ class Poemwriter
                 lineList[i].rhymCode = rhym[i];
             }
         }
-        public static void adVowel(Line l, char v, bool first)
-        {
-            if (first) { l.penultVowel = v; }
-            else { l.lastVowel = v; }
-        }
 
-        public static void adVowel(Line l, string vs)
-        {
-
-        }
         public static int percentRandom(int max)
         {
             int result = 0;
             do
             {
                 int temp = r.Next(1, 101);
-                int indx = temp < 1 ? 0 : temp < 10 ? 1 : temp < 33 ? 2 : temp < 65 ? 3 : temp < 91 ? 4 : temp < 95 ? 5 :
+                int indx = temp < 1 ? 0 : temp < 8 ? 1 : temp < 33 ? 2 : temp < 65 ? 3 : temp < 91 ? 4 : temp < 95 ? 5 :
                     temp < 96 ? 6 : temp < 97 ? 7 : 8;
                 result = indx;
             } while (max < result);
@@ -182,6 +160,11 @@ class Poemwriter
                         if (readerIndex > -1 && tone[readerIndex] == '2')
                         {
                             templist = templist.FindAll(x => x.first != (ConnectionType)4);
+                            if(lineList[i].wordsInLine.Count != 0)
+                            {
+                                templist = selector(lineList[i].wordsInLine.Last(), toCode, templist, false);
+
+                            }
                         }
                         else if (readerIndex > -1 && tone[readerIndex] != '1')
                         {
@@ -250,7 +233,7 @@ class Poemwriter
                         list = list.FindAll(x => x.first == (ConnectionType)0 && x.wordCode == codePart);
                         break;
                     case (ConnectionType)2:
-                        list = list.FindAll(x => (x.first == (ConnectionType)0 || x.first == (ConnectionType)3) && x.wordCode == codePart);
+                        list = list.FindAll(x => (x.first == (ConnectionType)0 || x.first == (ConnectionType)2) && x.wordCode == codePart);
                         break;
                     default:
                         list = list.FindAll(x => x.wordCode == codePart);
@@ -390,30 +373,15 @@ class Poemwriter
         public string poemForm;
         public string[] poemCode;
         public string strictRyme;
-
         public static List<Schema> schemaList = new List<Schema>();
+
         public Schema(string poemForm, string[] poemCode)
         {
             this.poemForm = poemForm;
             this.poemCode = poemCode;
             schemaList.Add(this);
         }
-        public Schema(bool codedWords, string[] poemCode)
-        {
-            if (codedWords == false)
-            {
-                this.poemForm = "Costume";
-                schemaCodeReader();
-
-            }
-            else
-            {
-                this.poemForm = "Costume";
-                this.poemCode = poemCode;
-            }
-            schemaList.Add(this);
-
-        }
+   
         public static void schemaCodeReader()
         {
         
@@ -489,7 +457,7 @@ class Poemwriter
         public static List<Words> newWordlist = new List<Words>();
         public static List<char> zarHang = new List<char>() { 'P', 'T', 'K', 'B', 'D', 'G' };
         public static List<char> likvida = new List<char>() { 'L', 'R' };
-        public Words() { }
+
 
         public Words(string bW, bool added)
         {
@@ -517,45 +485,17 @@ class Poemwriter
             basicWordList.Add(this);
 
         }
-        public Words(string bW, string wC, string lV)
-        {
-            baseWord = bW.ToUpper();
-            wordCode = wC;
-            lastVowels = lV;
-            basicWordList.Add(this);
-        }
+
         public ConnectionType switcher(string code)
         {
 
             if (code == "10" || code == "130" || code == "145") { return (ConnectionType)1; }
-            if (code == "15") { return (ConnectionType)2; }
-            if (code == "14") { return (ConnectionType)3; }
+            if (code == "15") { return (ConnectionType)3; }
+            if (code == "14") { return (ConnectionType)2; }
             if (code.Length > 2) { return (ConnectionType)4; }
             else { return (ConnectionType)0; }
         }
-        public static Words selection(string code)
-        {
-            List<Words> temp = basicWordList.FindAll(x => x.wordCode == code).ToList();
-            if (temp.Count == 0)
-                return null;
-            return temp[r.Next(temp.Count)];
-        }
-        public static Words selection(string code, string lastvowles, bool justTheLast)
-        {
-            List<Words> temp;
-            if (justTheLast == true)
-            {
-                temp = basicWordList.FindAll(x => x.wordCode == code && (x.lastVowels.Length == 2 ? x.lastVowels[1].ToString() :
-                  x.lastVowels) == lastvowles).ToList();
-            }
-            else
-            {
-                temp = basicWordList.FindAll(x => x.wordCode == code && x.lastVowels == lastvowles).ToList();
-            }
-            if (temp.Count == 0)
-                return null;
-            return temp[r.Next(temp.Count)];
-        }
+
         public static string firsConnectCode(string w)
         {
             int counter = 0;

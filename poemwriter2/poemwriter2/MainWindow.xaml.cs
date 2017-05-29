@@ -12,15 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.IO;
 
 namespace poemwriter2
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-     
+        public static string[] poemFromTxt;
+        OpenFileDialog ofg = new OpenFileDialog();
+        StreamReader sr;
         
         public MainWindow()
         {
@@ -34,9 +39,9 @@ namespace poemwriter2
             fBox.IsEnabled = true;
             fTxt.IsEnabled = true;
         }
-        private void changeEnable(MenuItem mI)
+        private void changeEnable(System.Windows.Controls.MenuItem mI)
         {
-            MenuItem[] mArr = new MenuItem[] { fList, fBox, fTxt };
+            System.Windows.Controls.MenuItem[] mArr = new System.Windows.Controls.MenuItem[] { fList, fBox, fTxt };
             for (int i = 0; i < mArr.Length; i++)
             {
                 if (mArr[i] != mI) { mArr[i].IsEnabled = false; }
@@ -106,6 +111,22 @@ namespace poemwriter2
         private void fBox_Click(object sender, RoutedEventArgs e)
         {
             changeEnable(fBox);
+            MenuBoxWindow mbw = new MenuBoxWindow();
+            mbw.Show();
+        }
+
+        private void fTxt_Click(object sender, RoutedEventArgs e)
+        {
+            ofg.ShowDialog();
+            ofg.DefaultExt = ".txt";
+            ofg.Filter= "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            try
+            {
+                poemFromTxt = File.ReadAllLines(ofg.FileName,Encoding.Default);
+            }
+            catch (ArgumentException) { }
+
+            changeEnable(fTxt);
             MenuBoxWindow mbw = new MenuBoxWindow();
             mbw.Show();
         }

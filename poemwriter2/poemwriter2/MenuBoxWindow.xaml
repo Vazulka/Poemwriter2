@@ -27,32 +27,32 @@
                  AcceptsReturn="True"
                  HorizontalAlignment="Left" 
                  Height="150" Margin="70,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="590" Style="{DynamicResource TextBoxStyle1}" TextChanged="textBox1_TextChanged" >
-            
+
         </TextBox>
         <TextBox x:Name="textBoxTone" 
                  HorizontalAlignment="Left" 
                  Height="130" Margin="70,370,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="590" Style="{DynamicResource TextBoxStyle1}"/>
         <Button x:Name="button1" 
-                Content="Coding" 
+                Content="Kódolás" 
                 HorizontalAlignment="Left" 
-                Margin="70,522,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="coding_click" FontSize="20" FontFamily="Papyrus"/>
+                Margin="70,522,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="coding_click" FontSize="18" FontFamily="Papyrus" FontWeight="Bold"/>
         <Button x:Name="button2" 
-                Content="Add" 
+                Content="Hozzáad" 
                 HorizontalAlignment="Left" 
-                Margin="335,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="add_click" FontSize="18" FontFamily="Papyrus"/>
-        <Label x:Name="label" Content="Shema name" HorizontalAlignment="Left" Margin="105,107,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
+                Margin="335,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="add_click" FontSize="18" FontFamily="Papyrus" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Séma név" HorizontalAlignment="Left" Margin="105,107,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4" FontWeight="Bold"/>
         <Label x:Name="label1" 
-               Content="Paste text here" 
-               HorizontalAlignment="Left" Margin="221,229,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="48"
+               Content="Írd vagy másold ide a szöveget" 
+               HorizontalAlignment="Left" Margin="80,231,0,0" VerticalAlignment="Top" FontFamily="Papyrus" FontSize="44" Width="565"
                >
-           
+
         </Label>
-        <Label x:Name="label_Copy" Content="Tone code" HorizontalAlignment="Left" Margin="290,340,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
-        <Label x:Name="label_Copy1" Content="Base script" HorizontalAlignment="Left" Margin="290,155,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4"/>
+        <Label x:Name="label_Copy" Content="A szöveg mora kódja" HorizontalAlignment="Left" Margin="290,340,0,0" VerticalAlignment="Top" Width="155" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4" FontWeight="Bold"/>
+        <Label x:Name="label_Copy1" Content="Alap szöveg" HorizontalAlignment="Left" Margin="290,155,0,0" VerticalAlignment="Top" Width="120" FontFamily="Papyrus" FontSize="16" RenderTransformOrigin="-0.105,0.4" FontWeight="Bold"/>
         <Button x:Name="button2_Copy" 
-        	Content="Save" 
+        	Content="Mentés" 
         	HorizontalAlignment="Left" 
-        	Margin="585,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="Save_click" FontSize="18" FontFamily="Papyrus"/>
+        	Margin="585,525,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource BaseButtonStyle}" Click="Save_click" FontSize="18" FontFamily="Papyrus" FontWeight="Bold"/>
 
     </Grid>
 </Window>

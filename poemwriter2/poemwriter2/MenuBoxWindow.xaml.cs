@@ -22,6 +22,18 @@ namespace poemwriter2
         public MenuBoxWindow()
         {
             InitializeComponent();
+           if( MainWindow.poemFromTxt!=null)
+            {
+                for (int i = 0; i < MainWindow.poemFromTxt.Length; i++)
+                {
+                    if(i==0)
+                    {
+                        textBox.Text = MainWindow.poemFromTxt[i];
+                    }
+                    else if(MainWindow.poemFromTxt[i].Length>0)
+                        textBoxBase.Text += MainWindow.poemFromTxt[i]+"\n";
+                } 
+            }
         }
         static string[] tempLine;
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -73,9 +85,10 @@ namespace poemwriter2
             {
                 if (textBox.Text != "")
                 {
-                    int result = (int)MessageBox.Show("Biztos hozzá adod a Schema listához?", "", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                    int result = (int)MessageBox.Show("Biztos hozzá adod a Schema listához?", "", MessageBoxButton.YesNo,  MessageBoxImage.Question, MessageBoxResult.Yes);
                     if (result == 6)
                     {
+                        //MessageBox.Show("Kérlek add meg a jelszót",  caption);
                         List<string> templist = new List<string>();
                         templist.Add("*"+textBox.Text);
                         for (int i = 0; i < textBoxTone.LineCount; i++)

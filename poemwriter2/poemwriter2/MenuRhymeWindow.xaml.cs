@@ -39,13 +39,13 @@ namespace poemwriter2
 
         private void fill()
         {
-            int firstRectangle = 185;
+     
             for (int i = 0; i < Poemwriter.Line.lineList.Count; i++)
             {
                 int length = Poemwriter.Line.lineList[i].length;
                 TextBox tb1 = new TextBox();
                 tb1.Name = "t" + i.ToString();
-                tb1.Margin = new Thickness(350, firstRectangle, 0, 0);
+                tb1.Margin = new Thickness(50, 10, 0, 0);
                 tb1.Height = 35;
                 tb1.Width = 35;
                 tb1.HorizontalAlignment = HorizontalAlignment.Left;
@@ -53,19 +53,19 @@ namespace poemwriter2
                 tb1.Text = "";
                 tb1.FontSize = 25;
                 tb1.TextChanged += new TextChangedEventHandler(textBox_TextChanged);
-                rhymegrid.Children.Add(tb1);
+                stackpChildren2.Children.Add(tb1);
 
                 Label l1 = new Label();
                 l1.Name = "l"+i.ToString();
                 l1.Content = Poemwriter.Line.lineList[i].toneCode[length - 2]+""+ Poemwriter.Line.lineList[i].toneCode[length - 1];
-                l1.Margin = new Thickness(200, firstRectangle, 0, 0);
+                l1.Margin = new Thickness(50, 10, 0, 0);
                 l1.Height = 35;
                 l1.Width = 75;
                 l1.HorizontalAlignment = HorizontalAlignment.Left;
                 l1.VerticalAlignment = VerticalAlignment.Top;
-                rhymegrid.Children.Add(l1);
+                stackpChildren1.Children.Add(l1);
                 Permission v = new Permission(l1, tb1);
-                firstRectangle += 50;
+           
 
             }
         }

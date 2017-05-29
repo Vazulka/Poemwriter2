@@ -22,10 +22,20 @@ namespace poemwriter2
         static int counter = 1;       
         static string tbNames="";
         static List<TextBox> listtb = new List<TextBox>();
+        static List<TextBox> mora = new List<TextBox>();
         public AddWordWindow()
         {
             InitializeComponent();
             addWord();
+            for (int i = 0; i < Poemwriter.Line.lineList.Count; i++)
+            {
+                lineListBox.Text += Poemwriter.Line.lineList[i].toneCode;
+                if(i!= Poemwriter.Line.lineList.Count-1)
+                {
+                    lineListBox.Text += "\n";
+                }
+
+            }
         }
         private void addWord()
         {
@@ -55,8 +65,22 @@ namespace poemwriter2
             l1.HorizontalAlignment = HorizontalAlignment.Left;
             l1.VerticalAlignment = VerticalAlignment.Top;
             stackpChildren1.Children.Add(l1);
+  
+
+            TextBox moratb1 = new TextBox();  
+            moratb1.Name = "t" + counter.ToString();
+            moratb1.Margin = new Thickness(10, 0, 0, 0);
+            moratb1.Height = 35;
+            moratb1.Width = 250;
+            moratb1.HorizontalAlignment = HorizontalAlignment.Left;
+            moratb1.VerticalAlignment = VerticalAlignment.Top;
+            moratb1.Text = "";
+            moratb1.SelectionBrush = new SolidColorBrush(Colors.Peru);
+            moratb1.Background = null;
+            moratb1.FontSize = 25;
+            mora.Add(moratb1);
+            stackpChildren3.Children.Add(moratb1);
             counter++;
-          
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -70,8 +94,22 @@ namespace poemwriter2
             if(tb.Text!=""&& !tbNames.Contains(tb.Name))
             {
                 tbNames += tb.Name;
+                
                 addWord();
             }
+            if(tb.Text!="")
+            {
+                for (int i = 0; i < mora.Count; i++)
+                {
+                    if (tb.Name == mora[i].Name)
+                    {
+                        mora[i].Clear();
+                        mora[i].Text = Poemwriter.Words.codemake(Poemwriter.Words.clearing(tb.Text).Replace(" ", "").ToUpper());
+                    
+                    }
+                }
+            }
+           
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
